@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RNSIT Lost & Found</title>
+  <title>RNSIT Lost & Found — Campus Portal</title>
   <link rel="stylesheet" href="src/style.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>" />
+  <link rel="icon" type="image/png" href="assets/rnsit-logo.png" />
 </head>
 <body>
 
@@ -13,18 +13,32 @@
 <nav class="navbar" id="navbar">
   <div class="nav-container">
     <a href="#" class="nav-brand" onclick="showPage('home')">
-      <span class="nav-icon">🔍</span>
-      <span>RNSIT Lost &amp; Found</span>
+      <img src="assets/rnsit-logo.png" alt="RNSIT Logo" class="brand-logo" />
+      <div class="brand-text">
+        <span class="brand-title">RNSIT Lost &amp; Found</span>
+        <span class="brand-sub">Campus Community Portal</span>
+      </div>
     </a>
+
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
+
     <ul class="nav-links" id="navLinks">
       <li><a href="#" onclick="showPage('home')" class="nav-link active" data-page="home">Home</a></li>
       <li><a href="#" onclick="showPage('browse')" class="nav-link" data-page="browse">Browse Items</a></li>
       <li><a href="#" onclick="showPage('report')" class="nav-link" data-page="report">Report Item</a></li>
+      <li><a href="#" onclick="showPage('centers')" class="nav-link" data-page="centers">Drop Centers</a></li>
       <li><a href="#" onclick="showPage('myclaims')" class="nav-link" data-page="myclaims">My Claims</a></li>
       <li id="adminNavItem" style="display:none"><a href="#" onclick="showPage('admin')" class="nav-link" data-page="admin">Admin</a></li>
+      
+      <!-- Theme Toggle -->
+      <li>
+        <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </li>
+
       <li id="authBtn">
         <button class="btn btn-outline" onclick="showPage('login')">Login</button>
       </li>
@@ -39,17 +53,25 @@
   </div>
 </nav>
 
-<!-- =================== PAGES =================== -->
+<!-- =================== MAIN CONTENT =================== -->
 <main id="mainContent">
 
-<!-- HOME PAGE -->
+<!-- =================== HOME PAGE =================== -->
 <div id="page-home" class="page active">
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
-      <div class="hero-badge">RNSIT Community Project · Batch C1</div>
-      <h1 class="hero-title">Lost Something?<br><span class="gradient-text">We'll Help You Find It.</span></h1>
-      <p class="hero-subtitle">A single platform where RNSIT students and staff can report, discover, and reclaim lost belongings — fast, transparent, and trustworthy.</p>
+      <div class="hero-college-badge">
+        <img src="assets/rnsit-logo.png" alt="RNSIT Emblem" class="hero-emblem" />
+        <div>
+          <strong>R. N. S. Institute of Technology</strong>
+          <span>Autonomous Institution · Affiliated to VTU, Belagavi</span>
+        </div>
+      </div>
+      <div class="hero-badge">Community Project 2026 · Course Code: 25BCBPR308 · Batch C1</div>
+      <h1 class="hero-title">Lost Something on Campus?<br><span class="gradient-text">We'll Help You Find It.</span></h1>
+      <p class="hero-subtitle">The official platform connecting RNSIT students, faculty, and security to report, track, and reclaim lost belongings with verified ownership handovers.</p>
+      
       <div class="hero-actions">
         <button class="btn btn-primary btn-lg" onclick="showPage('report')">
           <span>📋</span> Report an Item
@@ -57,7 +79,11 @@
         <button class="btn btn-secondary btn-lg" onclick="showPage('browse')">
           <span>🔍</span> Browse Listings
         </button>
+        <button class="btn btn-outline btn-lg hero-outline-btn" onclick="showPage('centers')">
+          <span>🏛️</span> Handover Centers
+        </button>
       </div>
+
       <div class="hero-stats">
         <div class="stat-card">
           <span class="stat-num" id="statTotal">0</span>
@@ -69,281 +95,508 @@
         </div>
         <div class="stat-card">
           <span class="stat-num" id="statOpen">0</span>
-          <span class="stat-label">Open Reports</span>
+          <span class="stat-label">Active Reports</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="statClaims">0</span>
+          <span class="stat-label">Verified Claims</span>
         </div>
       </div>
     </div>
+
     <div class="hero-illustration">
-      <div class="floating-card fc1">🎒<br><small>Bag Found</small></div>
-      <div class="floating-card fc2">🔑<br><small>Keys Lost</small></div>
-      <div class="floating-card fc3">📱<br><small>Phone Returned!</small></div>
-      <div class="big-icon">🔍</div>
+      <div class="floating-card fc1">🎒<br><small>Bag Found · Block B</small></div>
+      <div class="floating-card fc2">🔑<br><small>Bike Keys · Canteen</small></div>
+      <div class="floating-card fc3">📱<br><small>iPhone Returned! ✅</small></div>
+      <div class="floating-card fc4">🪪<br><small>USN ID Card · Library</small></div>
+      <div class="hero-crest-backdrop">
+        <img src="assets/rnsit-logo.png" alt="RNSIT Logo Watermark" class="crest-watermark" />
+      </div>
     </div>
   </section>
 
+  <!-- QUICK ANNOUNCEMENT / URGENT BANNER -->
+  <section class="urgent-strip" id="urgentStrip" style="display:none;">
+    <div class="container">
+      <div class="urgent-banner-inner">
+        <span class="urgent-pulse-icon">🚨</span>
+        <div class="urgent-text">
+          <strong>Urgent Campus Alerts:</strong> <span id="urgentAlertText">Items tagged as urgent (Exam ID, Keys, Wallet) are highlighted for fast recovery.</span>
+        </div>
+        <button class="btn btn-sm btn-danger" onclick="filterUrgentOnly()">View Urgent Items →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
   <section class="features-section">
     <div class="container">
-      <h2 class="section-title">How It Works</h2>
-      <p class="section-subtitle">Three simple steps to recover what's yours</p>
+      <h2 class="section-title">How The Campus System Works</h2>
+      <p class="section-subtitle">Structured, verified, and secure recovery loop for the RNSIT community</p>
+      
       <div class="steps-grid">
         <div class="step-card">
           <div class="step-num">1</div>
           <div class="step-icon">📋</div>
-          <h3>Report</h3>
-          <p>Report a lost or found item with photos, description, category, date, and location found.</p>
+          <h3>1. Report &amp; Tag</h3>
+          <p>Submit item details, specify exact campus zone (Block A/B/C, Library, Canteen), upload photos, and flag if urgent.</p>
         </div>
         <div class="step-card">
           <div class="step-num">2</div>
-          <div class="step-icon">🔍</div>
-          <h3>Search &amp; Match</h3>
-          <p>Search and filter all listings by category, date, and keywords to find your item.</p>
+          <div class="step-icon">🤖</div>
+          <h3>2. Search &amp; Smart Match</h3>
+          <p>Instant category filters and our Smart Match engine find possible lost-found pairings automatically.</p>
         </div>
         <div class="step-card">
           <div class="step-num">3</div>
-          <div class="step-icon">✅</div>
-          <h3>Claim &amp; Return</h3>
-          <p>Submit a claim with identifying details. After verification, collect your item safely.</p>
+          <div class="step-icon">🔒</div>
+          <h3>3. Private Proof Verification</h3>
+          <p>Claimants submit non-public identifying details (stickers, serial numbers, wallpaper, contents) to verify ownership.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-icon">🖨️</div>
+          <h3>4. Verified Handover Slip</h3>
+          <p>Collect at designated campus drop points and generate a signed handover receipt for college audit records.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- RECENT LISTINGS -->
   <section class="recent-section">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">Recent Listings</h2>
-        <button class="btn btn-outline" onclick="showPage('browse')">View All →</button>
+        <div>
+          <h2 class="section-title">Recent Campus Listings</h2>
+          <p class="section-sub">Recently reported items across RNSIT campus</p>
+        </div>
+        <button class="btn btn-outline" onclick="showPage('browse')">View All Listings →</button>
       </div>
       <div class="items-grid" id="recentItems"></div>
     </div>
   </section>
 
+  <!-- SDG COMMITMENT -->
   <section class="sdg-section">
     <div class="container">
-      <h2 class="section-title">Our SDG Commitment</h2>
+      <h2 class="section-title">UN Sustainable Development Goals (SDG) Alignment</h2>
+      <p class="section-subtitle">Manned under Community Project 25BCBPR308</p>
+      
       <div class="sdg-grid">
         <div class="sdg-card sdg11">
-          <div class="sdg-num">SDG 11</div>
+          <div class="sdg-badge">GOAL 11</div>
           <h3>Sustainable Cities &amp; Communities</h3>
-          <p>Contributes to safer, better-organised shared spaces by giving people a reliable way to recover lost belongings within their campus community.</p>
+          <p>Fosters an organized, safe, and collaborative campus environment. Reduces avoidable economic loss for students by enabling rapid return of essential devices, notes, and belongings.</p>
         </div>
         <div class="sdg-card sdg16">
-          <div class="sdg-num">SDG 16</div>
+          <div class="sdg-badge">GOAL 16</div>
           <h3>Peace, Justice &amp; Strong Institutions</h3>
-          <p>Promotes trust and accountability through transparent, verifiable claim handling and a recorded status for every item.</p>
+          <p>Replaces informal rumors with transparent record-keeping, anti-theft verification mechanisms, and documented handover receipts that establish institutional trust.</p>
         </div>
       </div>
     </div>
   </section>
 </div>
 
-<!-- BROWSE PAGE -->
+<!-- =================== BROWSE PAGE =================== -->
 <div id="page-browse" class="page">
   <div class="page-header">
     <div class="container">
-      <h1>Browse Items</h1>
-      <p>Search through all reported lost and found items</p>
+      <div class="page-header-flex">
+        <div>
+          <h1>Browse Campus Items</h1>
+          <p>Search and filter through all verified lost and found reports</p>
+        </div>
+        <button class="btn btn-primary" onclick="showPage('report')">➕ Report An Item</button>
+      </div>
     </div>
   </div>
+
   <div class="container">
+    <!-- Quick Zone Chips -->
+    <div class="zone-chips-bar">
+      <span class="chips-label">📍 Quick Zones:</span>
+      <button class="chip active" onclick="setZoneFilter('', this)">All Campus</button>
+      <button class="chip" onclick="setZoneFilter('Library', this)">Library</button>
+      <button class="chip" onclick="setZoneFilter('Block A', this)">Block A</button>
+      <button class="chip" onclick="setZoneFilter('Block B', this)">Block B</button>
+      <button class="chip" onclick="setZoneFilter('Block C', this)">Block C</button>
+      <button class="chip" onclick="setZoneFilter('Canteen', this)">Canteen</button>
+      <button class="chip" onclick="setZoneFilter('Sports', this)">Sports Ground</button>
+      <button class="chip chip-urgent" onclick="setUrgentFilter(this)">🚨 Urgent Only</button>
+    </div>
+
+    <!-- Main Filter Bar -->
     <div class="filter-bar">
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search by item name, description..." oninput="filterItems()" />
+        <input type="text" id="searchInput" placeholder="Search by item name, USN, marks, location..." oninput="filterItems()" />
       </div>
+
       <select id="filterCategory" onchange="filterItems()" class="filter-select">
         <option value="">All Categories</option>
         <option value="Electronics">Electronics</option>
         <option value="Bags">Bags &amp; Wallets</option>
-        <option value="ID/Cards">ID / Cards</option>
+        <option value="ID/Cards">ID / Hall Tickets</option>
         <option value="Keys">Keys</option>
         <option value="Clothing">Clothing</option>
-        <option value="Books">Books &amp; Stationery</option>
+        <option value="Books">Books &amp; Notes</option>
         <option value="Accessories">Accessories</option>
         <option value="Sports">Sports Equipment</option>
         <option value="Other">Other</option>
       </select>
+
       <select id="filterType" onchange="filterItems()" class="filter-select">
-        <option value="">Lost &amp; Found</option>
+        <option value="">All Types (Lost &amp; Found)</option>
         <option value="Lost">Lost Only</option>
         <option value="Found">Found Only</option>
       </select>
+
       <select id="filterStatus" onchange="filterItems()" class="filter-select">
         <option value="">All Statuses</option>
         <option value="Open">Open</option>
         <option value="Claim Pending">Claim Pending</option>
         <option value="Returned">Returned</option>
       </select>
-      <button class="btn btn-outline btn-sm" onclick="clearFilters()">Clear</button>
+
+      <button class="btn btn-outline btn-sm" onclick="clearFilters()">Reset</button>
     </div>
-    <div class="results-info" id="resultsInfo"></div>
+
+    <div class="results-info-row">
+      <div class="results-info" id="resultsInfo">Loading items...</div>
+      <div class="results-actions">
+        <button class="btn btn-sm btn-outline" onclick="exportItemsToCSV()">📥 Export CSV</button>
+      </div>
+    </div>
+
     <div class="items-grid" id="browseItems"></div>
+    
     <div class="empty-state" id="browseEmpty" style="display:none">
       <div class="empty-icon">📭</div>
-      <h3>No items found</h3>
-      <p>Try adjusting your filters or be the first to report an item!</p>
-      <button class="btn btn-primary" onclick="showPage('report')">Report an Item</button>
+      <h3>No listings found</h3>
+      <p>Try clearing filters or search terms, or report a new item if you've lost or found something!</p>
+      <button class="btn btn-primary" onclick="showPage('report')">Report An Item Now</button>
     </div>
   </div>
 </div>
 
-<!-- REPORT PAGE -->
+<!-- =================== REPORT PAGE =================== -->
 <div id="page-report" class="page">
   <div class="page-header">
     <div class="container">
-      <h1>Report an Item</h1>
-      <p>Fill in the details to report a lost or found item</p>
+      <h1>Report Lost or Found Item</h1>
+      <p>Log item details into the official RNSIT campus register</p>
     </div>
   </div>
+
   <div class="container">
     <div class="form-card">
       <div class="type-toggle">
-        <button class="toggle-btn active" id="toggleLost" onclick="setReportType('Lost')">🔴 I Lost Something</button>
-        <button class="toggle-btn" id="toggleFound" onclick="setReportType('Found')">🟢 I Found Something</button>
+        <button class="toggle-btn active" id="toggleLost" onclick="setReportType('Lost')">
+          🔴 I Lost Something (Seek Item)
+        </button>
+        <button class="toggle-btn" id="toggleFound" onclick="setReportType('Found')">
+          🟢 I Found Something (Surrender / Return)
+        </button>
       </div>
+
       <form id="reportForm" onsubmit="submitReport(event)">
         <div class="form-grid">
           <div class="form-group">
-            <label>Item Name *</label>
-            <input type="text" id="itemName" placeholder="e.g. Blue JanSport Backpack" required />
+            <label>Item Name / Title *</label>
+            <input type="text" id="itemName" placeholder="e.g. Navy Blue Wildcraft Backpack with Lenovo Charger" required />
           </div>
+
           <div class="form-group">
             <label>Category *</label>
             <select id="itemCategory" required>
               <option value="">Select category</option>
-              <option>Electronics</option>
-              <option>Bags</option>
-              <option>ID/Cards</option>
-              <option>Keys</option>
-              <option>Clothing</option>
-              <option>Books</option>
-              <option>Accessories</option>
-              <option>Sports</option>
-              <option>Other</option>
+              <option value="Electronics">Electronics (Laptop, Phone, Earbuds)</option>
+              <option value="Bags">Bags, Wallets &amp; Pouches</option>
+              <option value="ID/Cards">College ID Card / Hall Ticket / Gov ID</option>
+              <option value="Keys">Keys (Bike, Room, Locker)</option>
+              <option value="Clothing">Clothing &amp; Umbrellas</option>
+              <option value="Books">Books, Records &amp; Calculators</option>
+              <option value="Accessories">Watch, Glasses &amp; Jewellery</option>
+              <option value="Sports">Sports Equipment</option>
+              <option value="Other">Other Items</option>
             </select>
           </div>
+
           <div class="form-group">
-            <label>Date *</label>
+            <label>Date Lost / Found *</label>
             <input type="date" id="itemDate" required />
           </div>
+
           <div class="form-group">
-            <label>Location *</label>
-            <input type="text" id="itemLocation" placeholder="e.g. Library, Block A Corridor, Canteen" required />
+            <label>Campus Location / Block *</label>
+            <select id="itemLocationSelect" onchange="handleLocationSelect(this)" required>
+              <option value="">Select Primary Campus Area</option>
+              <option value="Central Library">Central Library (Ground / 1st / 2nd Floor)</option>
+              <option value="Block A">Block A (ECE / Mechanical / Main Admin)</option>
+              <option value="Block B">Block B (CSE / ISE / AI-ML / Data Science)</option>
+              <option value="Block C">Block C (Civil / Basic Sciences / First Year)</option>
+              <option value="Main Canteen">Main College Canteen / Nescafe Point</option>
+              <option value="Main Auditorium">Main Auditorium / Seminar Hall</option>
+              <option value="Sports Ground">Sports Complex / Basketball / Cricket Ground</option>
+              <option value="Campus Main Gate">Campus Main Gate / Temple Entrance</option>
+              <option value="Other Location">Other (Custom Location)</option>
+            </select>
+            <input type="text" id="itemLocation" placeholder="Specific spot details (e.g. Table 14, 2nd Floor Library)" required style="margin-top: 6px;" />
           </div>
+
           <div class="form-group full-width">
-            <label>Description *</label>
-            <textarea id="itemDesc" rows="4" placeholder="Describe the item in detail — color, brand, distinguishing marks, what was inside, etc." required></textarea>
+            <label>Public Description *</label>
+            <textarea id="itemDesc" rows="3" placeholder="Provide public visual features (brand, color, general condition). DO NOT mention private passcodes, internal secret pocket contents or unique marks that only the true owner can verify!" required></textarea>
+            <small class="field-hint">💡 Pro-tip: Keep secret identifying details private so you can verify the claimant's proof!</small>
           </div>
-          <div class="form-group full-width">
+
+          <div class="form-group">
             <label>Contact Email *</label>
-            <input type="email" id="itemContact" placeholder="your.email@rnsit.ac.in" required />
+            <input type="email" id="itemContact" placeholder="yourname25cs@rnsit.ac.in" required />
           </div>
+
+          <div class="form-group">
+            <label>Contact Phone / WhatsApp</label>
+            <input type="tel" id="itemPhone" placeholder="10-digit mobile number" />
+          </div>
+
+          <!-- Urgent Checkbox -->
+          <div class="form-group full-width urgent-checkbox-group">
+            <label class="checkbox-container">
+              <input type="checkbox" id="itemIsUrgent" />
+              <span class="checkmark"></span>
+              <span class="checkbox-label">
+                <strong>🚨 Mark as Urgent Item</strong> — Hall tickets, College ID cards, Keys, or Medical supplies that need priority attention before exams/commute.
+              </span>
+            </label>
+          </div>
+
+          <!-- Photo Upload -->
           <div class="form-group full-width">
-            <label>Upload Photo <span class="optional">(optional)</span></label>
+            <label>Upload Item Photo <span class="optional">(Optional but recommended)</span></label>
             <div class="upload-area" id="uploadArea" onclick="document.getElementById('itemPhoto').click()">
               <div class="upload-icon">📷</div>
-              <p>Click to upload a photo of the item</p>
-              <small>PNG, JPG, GIF up to 5MB</small>
+              <p><strong>Click to browse photo</strong> or drag &amp; drop</p>
+              <small>Supported: JPG, PNG, WEBP (Max 5MB)</small>
               <input type="file" id="itemPhoto" accept="image/*" style="display:none" onchange="previewPhoto(event)" />
             </div>
-            <img id="photoPreview" src="" alt="Preview" style="display:none; max-width:200px; border-radius:8px; margin-top:8px;" />
+            <div id="photoPreviewContainer" style="display:none; margin-top: 10px;">
+              <img id="photoPreview" src="" alt="Preview" style="max-width:240px; max-height:180px; border-radius:10px; border:2px solid var(--border);" />
+              <button type="button" class="btn btn-sm btn-danger" onclick="removePhoto()" style="margin-left: 10px;">Remove</button>
+            </div>
           </div>
         </div>
+
         <div class="form-actions">
           <button type="button" class="btn btn-outline" onclick="showPage('browse')">Cancel</button>
-          <button type="submit" class="btn btn-primary">📋 Submit Report</button>
+          <button type="submit" class="btn btn-primary btn-lg">📋 Submit Campus Report</button>
         </div>
       </form>
     </div>
   </div>
 </div>
 
-<!-- ITEM DETAIL PAGE -->
-<div id="page-detail" class="page">
+<!-- =================== DROP-OFF CENTERS PAGE =================== -->
+<div id="page-centers" class="page">
+  <div class="page-header">
+    <div class="container">
+      <h1>Campus Handover &amp; Drop Centers</h1>
+      <p>Official designated desks across RNSIT campus to safely surrender or collect verified items</p>
+    </div>
+  </div>
+
   <div class="container">
-    <button class="btn btn-outline back-btn" onclick="goBack()">← Back</button>
-    <div class="detail-card" id="detailCard"></div>
+    <div class="centers-grid">
+      <div class="center-card">
+        <div class="center-icon">🛡️</div>
+        <div class="center-tag">Primary 24/7 Desk</div>
+        <h3>Main Gate Security Office</h3>
+        <p class="center-location">📍 Main Entrance (Near Temple Gate)</p>
+        <p class="center-desc">Best for items found during late evenings, weekends, or general campus perimeter. Security personnel maintain a physical custody register.</p>
+        <div class="center-meta">
+          <span>🕒 Timings: 24 Hours / 7 Days</span>
+          <span>👤 Officer in Charge: Campus Security Head</span>
+        </div>
+      </div>
+
+      <div class="center-card">
+        <div class="center-icon">📚</div>
+        <div class="center-tag">Central Academic Desk</div>
+        <h3>Central Library Circulation Counter</h3>
+        <p class="center-location">📍 Central Library Building, Ground Floor</p>
+        <p class="center-desc">For books, calculators, notes, study glasses, laptop sleeves and student ID cards left in reading halls.</p>
+        <div class="center-meta">
+          <span>🕒 Timings: 8:30 AM – 7:30 PM</span>
+          <span>👤 In Charge: Senior Librarian Desk</span>
+        </div>
+      </div>
+
+      <div class="center-card">
+        <div class="center-icon">💻</div>
+        <div class="center-tag">Department Desk</div>
+        <h3>CSE Department Office (Block B)</h3>
+        <p class="center-location">📍 Block B, 2nd Floor, Room B-205</p>
+        <p class="center-desc">Drop-off center managed for Computer Science, Information Science &amp; Allied branches labs and classrooms.</p>
+        <div class="center-meta">
+          <span>🕒 Timings: 9:00 AM – 4:45 PM</span>
+          <span>👤 Coordinator: Community Project Helpdesk</span>
+        </div>
+      </div>
+
+      <div class="center-card">
+        <div class="center-icon">☕</div>
+        <div class="center-tag">Student Common Area</div>
+        <h3>Canteen Main Billing Desk</h3>
+        <p class="center-location">📍 RNSIT Central Canteen &amp; Food Court</p>
+        <p class="center-desc">Hand over wallets, bike keys, water bottles, and pouches left behind on food court dining tables.</p>
+        <div class="center-meta">
+          <span>🕒 Timings: 8:00 AM – 5:30 PM</span>
+          <span>👤 In Charge: Canteen Manager</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Handover Guidelines Card -->
+    <div class="guidelines-card">
+      <h3>📜 Campus Handover Standard Operating Procedure (SOP)</h3>
+      <ol>
+        <li><strong>Finder:</strong> When you find an item, report it online and hand it over to the nearest designated center within 4 hours.</li>
+        <li><strong>Verification:</strong> The claimant must describe non-public details (wallpaper, stickers, bill or internal contents).</li>
+        <li><strong>Collection:</strong> Present your valid College ID Card (USN) when picking up the item.</li>
+        <li><strong>Receipt:</strong> An automated digital Handover Receipt is generated on this portal for official record.</li>
+      </ol>
+    </div>
   </div>
 </div>
 
-<!-- MY CLAIMS PAGE -->
+<!-- =================== ITEM DETAIL PAGE =================== -->
+<div id="page-detail" class="page">
+  <div class="container">
+    <div class="detail-top-nav">
+      <button class="btn btn-outline back-btn" onclick="goBack()">← Back to Listings</button>
+      <div id="detailShareButtons" class="detail-share-group"></div>
+    </div>
+
+    <div class="detail-card" id="detailCard"></div>
+
+    <!-- Smart Match Box (appears dynamically if matches found) -->
+    <div id="smartMatchContainer" class="smart-match-container" style="display:none;"></div>
+  </div>
+</div>
+
+<!-- =================== MY CLAIMS PAGE =================== -->
 <div id="page-myclaims" class="page">
   <div class="page-header">
     <div class="container">
-      <h1>My Claims</h1>
-      <p>Track the status of your submitted claims</p>
+      <h1>My Claims &amp; Reported Items</h1>
+      <p>Track your claim verifications and reports you posted</p>
     </div>
   </div>
   <div class="container">
-    <div id="myClaimsContent"></div>
+    <div class="myclaims-tabs">
+      <button class="tab-btn active" onclick="switchMyTab('tabMyClaims', this)">📝 My Claims</button>
+      <button class="tab-btn" onclick="switchMyTab('tabMyReports', this)">📦 My Reported Items</button>
+    </div>
+    <div id="tabMyClaims" class="myclaims-tab-pane active">
+      <div id="myClaimsContent"></div>
+    </div>
+    <div id="tabMyReports" class="myclaims-tab-pane" style="display:none;">
+      <div id="myReportsContent"></div>
+    </div>
   </div>
 </div>
 
-<!-- LOGIN PAGE -->
+<!-- =================== LOGIN PAGE =================== -->
 <div id="page-login" class="page">
   <div class="auth-container">
     <div class="auth-card">
       <div class="auth-header">
-        <div class="auth-logo">🔍</div>
-        <h2>Welcome Back</h2>
-        <p>Sign in to your RNSIT Lost &amp; Found account</p>
+        <img src="assets/rnsit-logo.png" alt="RNSIT Emblem" class="auth-emblem" />
+        <h2>RNSIT Campus Login</h2>
+        <p>Sign in with your college credentials</p>
       </div>
+
       <form id="loginForm" onsubmit="login(event)">
         <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="loginEmail" placeholder="your.email@rnsit.ac.in" required />
+          <label>Email Address</label>
+          <input type="email" id="loginEmail" placeholder="yourname25cs@rnsit.ac.in" required />
         </div>
         <div class="form-group">
           <label>Password</label>
           <div class="password-wrapper">
-            <input type="password" id="loginPassword" placeholder="Enter your password" required />
+            <input type="password" id="loginPassword" placeholder="Enter password" required />
             <button type="button" class="eye-btn" onclick="togglePwd('loginPassword')">👁</button>
           </div>
         </div>
         <div id="loginError" class="form-error" style="display:none"></div>
-        <button type="submit" class="btn btn-primary btn-full">Login</button>
+        <button type="submit" class="btn btn-primary btn-full">Login to Portal</button>
       </form>
+
       <div class="auth-divider">or</div>
       <div class="auth-footer">
-        <p>Don't have an account? <a href="#" onclick="showPage('register')">Register here</a></p>
-        <p class="demo-hint">🔑 Demo: <code>admin@rnsit.ac.in</code> / <code>admin123</code></p>
+        <p>New student/staff? <a href="#" onclick="showPage('register')">Create an account</a></p>
+        <div class="demo-credentials-box">
+          <strong>🔑 Quick Demo Logins:</strong>
+          <div class="demo-role-row">
+            <span>Admin:</span> <code>admin@rnsit.ac.in</code> / <code>admin123</code>
+          </div>
+          <div class="demo-role-row">
+            <span>Student:</span> <code>akshaykaushik25cs@rnsit.ac.in</code> / <code>pass1234</code>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- REGISTER PAGE -->
+<!-- =================== REGISTER PAGE =================== -->
 <div id="page-register" class="page">
   <div class="auth-container">
     <div class="auth-card">
       <div class="auth-header">
-        <div class="auth-logo">🎓</div>
-        <h2>Create Account</h2>
-        <p>Join the RNSIT Lost &amp; Found community</p>
+        <img src="assets/rnsit-logo.png" alt="RNSIT Emblem" class="auth-emblem" />
+        <h2>Student / Staff Registration</h2>
+        <p>Join the RNSIT Lost &amp; Found campus community</p>
       </div>
+
       <form id="registerForm" onsubmit="register(event)">
         <div class="form-group">
           <label>Full Name *</label>
-          <input type="text" id="regName" placeholder="Your full name" required />
+          <input type="text" id="regName" placeholder="e.g. Akshay Kaushik" required />
         </div>
         <div class="form-group">
-          <label>Email *</label>
-          <input type="email" id="regEmail" placeholder="your.email@rnsit.ac.in" required />
+          <label>College Email ID *</label>
+          <input type="email" id="regEmail" placeholder="name25cs@rnsit.ac.in" required />
         </div>
         <div class="form-group">
-          <label>USN</label>
-          <input type="text" id="regUSN" placeholder="e.g. 1RN25CS016" />
+          <label>USN (University Seat Number) *</label>
+          <input type="text" id="regUSN" placeholder="e.g. 1RN25CS016" required />
         </div>
         <div class="form-group">
-          <label>Password *</label>
+          <label>Department / Branch</label>
+          <select id="regDept">
+            <option value="CSE">Computer Science &amp; Engineering</option>
+            <option value="ISE">Information Science &amp; Engineering</option>
+            <option value="AIML">Artificial Intelligence &amp; Machine Learning</option>
+            <option value="ECE">Electronics &amp; Communication</option>
+            <option value="MECH">Mechanical Engineering</option>
+            <option value="CIVIL">Civil Engineering</option>
+            <option value="STAFF">Faculty / Staff Member</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Create Password *</label>
           <div class="password-wrapper">
-            <input type="password" id="regPassword" placeholder="Min. 6 characters" required minlength="6" />
+            <input type="password" id="regPassword" placeholder="Minimum 6 characters" required minlength="6" />
             <button type="button" class="eye-btn" onclick="togglePwd('regPassword')">👁</button>
           </div>
         </div>
         <div id="regError" class="form-error" style="display:none"></div>
-        <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+        <button type="submit" class="btn btn-primary btn-full">Register Account</button>
       </form>
+
       <div class="auth-footer">
         <p>Already have an account? <a href="#" onclick="showPage('login')">Login here</a></p>
       </div>
@@ -351,21 +604,28 @@
   </div>
 </div>
 
-<!-- ADMIN PAGE -->
+<!-- =================== ADMIN PAGE =================== -->
 <div id="page-admin" class="page">
   <div class="page-header">
     <div class="container">
-      <h1>Admin Dashboard</h1>
-      <p>Manage all items, claims, and users</p>
+      <div class="page-header-flex">
+        <div>
+          <h1>Admin Control Dashboard</h1>
+          <p>Official moderation, claim verification, status lifecycle &amp; institutional records</p>
+        </div>
+        <button class="btn btn-secondary" onclick="exportItemsToCSV()">📥 Export Audit CSV</button>
+      </div>
     </div>
   </div>
+
   <div class="container">
     <div class="admin-tabs">
-      <button class="tab-btn active" onclick="switchTab('adminItems', this)">📦 All Items</button>
-      <button class="tab-btn" onclick="switchTab('adminClaims', this)">📝 Claims</button>
-      <button class="tab-btn" onclick="switchTab('adminUsers', this)">👥 Users</button>
-      <button class="tab-btn" onclick="switchTab('adminStats', this)">📊 Stats</button>
+      <button class="tab-btn active" onclick="switchTab('adminItems', this)">📦 All Campus Items</button>
+      <button class="tab-btn" onclick="switchTab('adminClaims', this)">📝 Claims Queue</button>
+      <button class="tab-btn" onclick="switchTab('adminUsers', this)">👥 Registered Users</button>
+      <button class="tab-btn" onclick="switchTab('adminStats', this)">📊 Statistics &amp; SDG</button>
     </div>
+
     <div id="adminItems" class="admin-tab-content active"></div>
     <div id="adminClaims" class="admin-tab-content" style="display:none"></div>
     <div id="adminUsers" class="admin-tab-content" style="display:none"></div>
@@ -375,34 +635,67 @@
 
 </main>
 
-<!-- =================== MODALS =================== -->
+<!-- =================== CLAIM SUBMISSION MODAL =================== -->
 <div id="claimModal" class="modal-overlay" onclick="closeModal('claimModal')">
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-header">
-      <h3>Submit a Claim</h3>
+      <div class="modal-title-group">
+        <h3>Submit Claim &amp; Ownership Verification</h3>
+        <p class="modal-subtitle">Private verification for <span id="claimItemTitleDisplay">item</span></p>
+      </div>
       <button class="modal-close" onclick="closeModal('claimModal')">✕</button>
     </div>
+
     <div class="modal-body">
-      <p class="modal-info">📌 Describe specific details that only the true owner would know. Your claim will be reviewed by admin before the item is released.</p>
+      <div class="modal-info">
+        🛡️ <strong>Anti-Theft Protocol:</strong> Describe confidential details that only the true owner would know (e.g. lockscreen wallpaper, scratches, internal items, serial number, ID name).
+      </div>
+
       <form id="claimForm" onsubmit="submitClaim(event)">
         <input type="hidden" id="claimItemId" />
+
         <div class="form-group">
-          <label>Proof of Ownership *</label>
-          <textarea id="claimProof" rows="4" placeholder="Describe unique identifying features — what was inside the bag, the exact color/brand, any scratches or stickers, serial number, etc." required minlength="20"></textarea>
+          <label>Proof of Ownership (Confidential) *</label>
+          <textarea id="claimProof" rows="4" placeholder="Detail the secret identifiers (e.g. 'Inside front pocket has a blue Parker pen and 2 keys; back cover has a GitHub sticker')" required minlength="15"></textarea>
         </div>
+
         <div class="form-group">
-          <label>Your Contact Number</label>
-          <input type="tel" id="claimPhone" placeholder="10-digit phone number" />
+          <label>Your Contact Mobile Number *</label>
+          <input type="tel" id="claimPhone" placeholder="10-digit mobile number for handover call" required />
         </div>
+
+        <div class="form-group">
+          <label>Your USN (University Seat Number)</label>
+          <input type="text" id="claimUSN" placeholder="e.g. 1RN25CS016" />
+        </div>
+
         <div class="form-actions">
           <button type="button" class="btn btn-outline" onclick="closeModal('claimModal')">Cancel</button>
-          <button type="submit" class="btn btn-primary">Submit Claim</button>
+          <button type="submit" class="btn btn-primary">✅ Submit Claim for Review</button>
         </div>
       </form>
     </div>
   </div>
 </div>
 
+<!-- =================== RECEIPT MODAL (PRINTABLE HANDOVER SLIP) =================== -->
+<div id="receiptModal" class="modal-overlay" onclick="closeModal('receiptModal')">
+  <div class="modal modal-receipt" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Campus Handover Acknowledgment Slip</h3>
+      <button class="modal-close" onclick="closeModal('receiptModal')">✕</button>
+    </div>
+    <div class="modal-body" id="receiptPrintArea">
+      <!-- Generated via JS -->
+    </div>
+    <div class="modal-footer" style="padding: 1rem 1.75rem; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 1rem;">
+      <button class="btn btn-outline" onclick="closeModal('receiptModal')">Close</button>
+      <button class="btn btn-primary" onclick="printReceipt()"><span class="btn-icon">🖨️</span> Print / Save PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOASTS -->
 <div id="toastContainer" class="toast-container"></div>
 
 <!-- =================== FOOTER =================== -->
@@ -410,26 +703,48 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="nav-brand"><span>🔍</span> RNSIT Lost &amp; Found</div>
-        <p>A community project by RNSIT Computer Science students to help the campus community recover lost belongings.</p>
+        <div class="footer-logo-row">
+          <img src="assets/rnsit-logo.png" alt="RNSIT Logo" class="footer-emblem" />
+          <div>
+            <div class="footer-college-name">R. N. S. Institute of Technology</div>
+            <div class="footer-college-sub">Autonomous Institution · Affiliated to VTU, Belagavi · Accredited by NAAC with 'A+' Grade</div>
+          </div>
+        </div>
+        <p class="footer-about">
+          A Community Project developed to solve lost &amp; found coordination on campus through structured lifecycle management, private proof verification, and institutional handover records.
+        </p>
+        <p class="footer-location">
+          📍 Dr. Vishnuvardhan Road, Post, Channasandra, RR Nagar, Bengaluru, Karnataka 560098
+        </p>
       </div>
+
       <div class="footer-links">
-        <h4>Quick Links</h4>
-        <a href="#" onclick="showPage('browse')">Browse Items</a>
+        <h4>Navigation</h4>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('browse')">Browse Listings</a>
         <a href="#" onclick="showPage('report')">Report Item</a>
+        <a href="#" onclick="showPage('centers')">Drop Centers</a>
         <a href="#" onclick="showPage('myclaims')">My Claims</a>
       </div>
+
       <div class="footer-team">
-        <h4>Project Team</h4>
-        <p>Atul Shrivastava</p>
-        <p>Leona Marilyn Rego</p>
-        <p>Akshay Kaushik</p>
-        <p>Ajjuguttu Pranay Krishna Reddy</p>
-        <small>Guide: Ms. Aishwarya G</small>
+        <h4>Project Team Details</h4>
+        <p><strong>Atul Shrivastava</strong> (1RX25CS032)</p>
+        <p><strong>Leona Marilyn Rego</strong> (1IB25CS101)</p>
+        <p><strong>Akshay Kaushik</strong> (1RN25CS016)</p>
+        <p><strong>Ajjuguttu Pranay Krishna Reddy</strong> (1RN25CS013)</p>
+        <div class="footer-guide-badge">
+          Internal Guide: <strong>Ms. Aishwarya G</strong>
+        </div>
+        <div class="footer-course-meta">
+          Course: Community Project (25BCBPR308) · Section C · Batch C1
+        </div>
       </div>
     </div>
+
     <div class="footer-bottom">
-      <p>© 2026 RNSIT Lost &amp; Found · Community Project · Course Code: 25BCBPR308 · Section C · Batch C1</p>
+      <div>&copy; 2026 RNSIT Lost &amp; Found Portal. Developed for RNSIT Campus Community.</div>
+      <div class="footer-sdg-tag">Manning UN Sustainable Development Goals: SDG 11 &amp; SDG 16</div>
     </div>
   </div>
 </footer>
