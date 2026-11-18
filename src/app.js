@@ -1,19 +1,19 @@
 /* =============================================
-   RNSIT Lost & Found — app.js
+   Campus Lost & Found — app.js
    Full Application Logic + Smart Match & Handover
    ============================================= */
 
 'use strict';
 
 // =============================================
-//  STORAGE & KEYS
+//  STORAGE & KEYS (V2 - Clean Campus Schema)
 // =============================================
 const KEYS = {
-  users: 'rnsit_lf_users',
-  items: 'rnsit_lf_items',
-  claims: 'rnsit_lf_claims',
-  currentUser: 'rnsit_lf_current_user',
-  theme: 'rnsit_lf_theme',
+  users: 'campus_lf_users_v2',
+  items: 'campus_lf_items_v2',
+  claims: 'campus_lf_claims_v2',
+  currentUser: 'campus_lf_user_v2',
+  theme: 'campus_lf_theme',
 };
 
 function getStore(key) {
@@ -52,15 +52,14 @@ function updateThemeIcon(theme) {
 }
 
 // =============================================
-//  SEED DATA
+//  SEED DATA (Using Official Campus Blocks)
 // =============================================
 function seedData() {
   if (!getStore(KEYS.users).length) {
     const users = [
-      { id: 'u1', name: 'Admin (Student Affairs / Security)', email: 'admin@rnsit.ac.in', password: 'admin123', usn: 'STAFF-SEC-01', role: 'admin', dept: 'STAFF', createdAt: '2026-10-01' },
-      { id: 'u2', name: 'Akshay Kaushik', email: 'akshaykaushik25cs@rnsit.ac.in', password: 'pass1234', usn: '1RN25CS016', role: 'user', dept: 'CSE', createdAt: '2026-10-10' },
-      { id: 'u3', name: 'Leona Marilyn Rego', email: 'leonamarilynrego25cs@rnsit.ac.in', password: 'pass1234', usn: '1IB25CS101', role: 'user', dept: 'CSE', createdAt: '2026-10-11' },
-      { id: 'u4', name: 'Atul Shrivastava', email: 'atulshrivastava25cs@rnsit.ac.in', password: 'pass1234', usn: '1RX25CS032', role: 'user', dept: 'CSE', createdAt: '2026-10-12' },
+      { id: 'u1', name: 'Admin (Security / Student Desk)', email: 'admin@campus.edu', password: 'admin123', role: 'admin', dept: 'Admin Block', createdAt: '2026-10-01' },
+      { id: 'u2', name: 'Campus Student', email: 'student@campus.edu', password: 'pass1234', role: 'user', dept: 'IT Block', createdAt: '2026-10-10' },
+      { id: 'u3', name: 'Faculty Member', email: 'faculty@campus.edu', password: 'pass1234', role: 'user', dept: 'Mechanical Block', createdAt: '2026-10-11' },
     ];
     setStore(KEYS.users, users);
   }
@@ -70,44 +69,62 @@ function seedData() {
       {
         id: 'i1', type: 'Lost', status: 'Open', category: 'Electronics',
         name: 'Apple AirPods Pro (White in Matte Case)', location: 'Central Library – 2nd Floor Study Desk',
-        date: '2026-11-14', desc: 'Lost my AirPods Pro in white case. Has a small blue sticker on the lid and small scratch near bottom.',
-        contact: 'akshaykaushik25cs@rnsit.ac.in', phone: '9380838591', photo: '', reportedBy: 'u2', isUrgent: false, createdAt: '2026-11-14',
+        date: '2026-11-14', desc: 'Lost AirPods Pro in white charging case. Has a small blue sticker on lid and small scratch near bottom.',
+        contact: 'student@campus.edu', phone: '9876543210', photo: '', reportedBy: 'u2', isUrgent: false, createdAt: '2026-11-14',
       },
       {
         id: 'i2', type: 'Found', status: 'Open', category: 'ID/Cards',
-        name: 'VTU Exam Hall Ticket & RNSIT ID Card', location: 'Block B – Ground Floor Classroom B-104',
-        date: '2026-11-16', desc: 'Found student ID card along with VTU 3rd Semester Hall ticket left on desk in B-104.',
-        contact: 'leonamarilynrego25cs@rnsit.ac.in', phone: '9482985685', photo: '', reportedBy: 'u3', isUrgent: true, createdAt: '2026-11-16',
+        name: 'Exam Hall Ticket & College ID Card', location: 'IT Block – 2nd Floor Classroom 204',
+        date: '2026-11-16', desc: 'Found student ID card along with Semester Exam Hall ticket left on desk in IT Block 204.',
+        contact: 'faculty@campus.edu', phone: '9876543211', photo: '', reportedBy: 'u3', isUrgent: true, createdAt: '2026-11-16',
       },
       {
         id: 'i3', type: 'Found', status: 'Claim Pending', category: 'Keys',
-        name: 'Set of Bike Keys with Honda Keychain', location: 'Main Canteen – Nescafe Counter',
-        date: '2026-11-15', desc: 'Set of 3 keys found near Nescafe counter. Includes an ignition key and a mini brass locker key.',
-        contact: 'admin@rnsit.ac.in', phone: '9740571690', photo: '', reportedBy: 'u1', isUrgent: true, createdAt: '2026-11-15',
+        name: 'Set of Bike Keys with Blue Keychain', location: 'Main Canteen – Nescafe Point',
+        date: '2026-11-15', desc: 'Set of 3 keys found near canteen entrance. Includes an ignition key and a mini locker key.',
+        contact: 'admin@campus.edu', phone: '9876543200', photo: '', reportedBy: 'u1', isUrgent: true, createdAt: '2026-11-15',
       },
       {
         id: 'i4', type: 'Lost', status: 'Returned', category: 'Bags',
-        name: 'Navy Blue Wildcraft Backpack', location: 'Block A – 1st Floor Corridor',
-        date: '2026-11-09', desc: 'Navy blue backpack containing OS notes and Casio scientific calculator fx-991EX. Successfully returned to owner!',
-        contact: 'atulshrivastava25cs@rnsit.ac.in', phone: '9740571690', photo: '', reportedBy: 'u4', isUrgent: false, createdAt: '2026-11-09',
+        name: 'Navy Blue Wildcraft Backpack', location: 'Mechanical Block – Workshop Hall 2',
+        date: '2026-11-09', desc: 'Navy blue backpack containing engineering drawing instruments and calculator. Returned successfully to owner!',
+        contact: 'student@campus.edu', phone: '9876543210', photo: '', reportedBy: 'u2', isUrgent: false, createdAt: '2026-11-09',
       },
       {
         id: 'i5', type: 'Found', status: 'Open', category: 'Accessories',
-        name: 'Casio Vintage Digital Watch (Silver)', location: 'Sports Ground – Basketball Court Bench',
-        date: '2026-11-17', desc: 'Found vintage stainless steel digital watch lying on the spectator bench near basketball court.',
-        contact: 'admin@rnsit.ac.in', phone: '9380838591', photo: '', reportedBy: 'u1', isUrgent: false, createdAt: '2026-11-17',
+        name: 'Casio Vintage Digital Watch (Silver)', location: 'Sports Ground – Spectator Bench',
+        date: '2026-11-17', desc: 'Found vintage stainless steel digital watch lying on spectator bench near basketball court.',
+        contact: 'admin@campus.edu', phone: '9876543200', photo: '', reportedBy: 'u1', isUrgent: false, createdAt: '2026-11-17',
       },
       {
         id: 'i6', type: 'Lost', status: 'Open', category: 'Books',
-        name: 'Operating Systems (Silberschatz) 10th Ed', location: 'Central Library – Reading Hall A',
-        date: '2026-11-16', desc: 'Hardcover textbook with handwritten sticky notes on Chapter 5 Process Synchronization.',
-        contact: 'akshaykaushik25cs@rnsit.ac.in', phone: '9380838591', photo: '', reportedBy: 'u2', isUrgent: false, createdAt: '2026-11-16',
+        name: 'Calculus & Structural Analysis Textbook', location: 'Civil Block – Room 102',
+        date: '2026-11-16', desc: 'Hardcover textbook with handwritten sticky notes on Chapter 4. Has bookmarks inside.',
+        contact: 'student@campus.edu', phone: '9876543210', photo: '', reportedBy: 'u2', isUrgent: false, createdAt: '2026-11-16',
       },
       {
         id: 'i7', type: 'Found', status: 'Open', category: 'Electronics',
-        name: 'Apple White Wireless Earbuds with Blue Sticker', location: 'Central Library – Ground Floor Return Desk',
-        date: '2026-11-15', desc: 'Found wireless earbuds inside white case submitted by library attendant.',
-        contact: 'admin@rnsit.ac.in', phone: '9740571690', photo: '', reportedBy: 'u1', isUrgent: false, createdAt: '2026-11-15',
+        name: 'Scientific Calculator fx-991CW', location: 'New IT Block – Software Lab 3',
+        date: '2026-11-15', desc: 'Black scientific calculator left on workstation table in Lab 3 after afternoon lab session.',
+        contact: 'admin@campus.edu', phone: '9876543200', photo: '', reportedBy: 'u1', isUrgent: false, createdAt: '2026-11-15',
+      },
+      {
+        id: 'i8', type: 'Found', status: 'Open', category: 'Bags',
+        name: 'Stainless Steel Water Bottle & Umbrella', location: 'PU College Block – Ground Floor Lobby',
+        date: '2026-11-17', desc: 'Grey Milton insulated bottle and black foldable umbrella found near staircase.',
+        contact: 'admin@campus.edu', phone: '9876543200', photo: '', reportedBy: 'u1', isUrgent: false, createdAt: '2026-11-17',
+      },
+      {
+        id: 'i9', type: 'Found', status: 'Open', category: 'Books',
+        name: 'Principles of Marketing & Financial Management', location: 'MBA Block – Seminar Hall A',
+        date: '2026-11-17', desc: 'Management textbook left on front row chair after guest lecture in MBA Block.',
+        contact: 'admin@campus.edu', phone: '9876543200', photo: '', reportedBy: 'u1', isUrgent: false, createdAt: '2026-11-17',
+      },
+      {
+        id: 'i10', type: 'Lost', status: 'Open', category: 'Accessories',
+        name: 'Leather Cardholder with Metro Pass', location: 'Admin Block – Main Reception Desk',
+        date: '2026-11-18', desc: 'Brown leather cardholder with bus pass and smart card dropped while visiting accounts section.',
+        contact: 'student@campus.edu', phone: '9876543210', photo: '', reportedBy: 'u2', isUrgent: true, createdAt: '2026-11-18',
       }
     ];
     setStore(KEYS.items, items);
@@ -116,10 +133,9 @@ function seedData() {
   if (!getStore(KEYS.claims).length) {
     const claims = [
       {
-        id: 'c1', itemId: 'i3', userId: 'u2', userName: 'Akshay Kaushik',
-        userUSN: '1RN25CS016',
-        proof: 'The Honda key has an RNSIT engraved silver tag, and there is a small black rubber band wrapped around the ring.',
-        phone: '9380838591', status: 'Pending', submittedAt: '2026-11-15',
+        id: 'c1', itemId: 'i3', userId: 'u2', userName: 'Campus Student',
+        proof: 'The ignition key has an engraved silver tag, and there is a small black rubber band wrapped around the ring.',
+        phone: '9876543210', status: 'Pending', submittedAt: '2026-11-15',
       },
     ];
     setStore(KEYS.claims, claims);
@@ -210,7 +226,6 @@ function register(e) {
   e.preventDefault();
   const name = document.getElementById('regName').value.trim();
   const email = document.getElementById('regEmail').value.trim();
-  const usn = document.getElementById('regUSN').value.trim().toUpperCase();
   const dept = document.getElementById('regDept').value;
   const password = document.getElementById('regPassword').value;
 
@@ -221,7 +236,7 @@ function register(e) {
   }
 
   const newUser = {
-    id: genId(), name, email, usn, dept, password, role: 'user', createdAt: today(),
+    id: genId(), name, email, dept, password, role: 'user', createdAt: today(),
   };
   users.push(newUser);
   setStore(KEYS.users, users);
@@ -292,7 +307,7 @@ function renderHome() {
   if (strip && stripText) {
     if (urgentCount > 0) {
       strip.style.display = '';
-      stripText.textContent = `${urgentCount} urgent item(s) (Exam ID / Keys / Hall Tickets) actively reported on campus!`;
+      stripText.textContent = `${urgentCount} urgent item(s) (Exam ID, Keys, Wallet) actively reported on campus!`;
     } else {
       strip.style.display = 'none';
     }
@@ -353,7 +368,6 @@ function filterItems() {
   });
 
   filtered.sort((a, b) => {
-    // Prioritize urgent open items
     if (a.isUrgent && !b.isUrgent) return -1;
     if (!a.isUrgent && b.isUrgent) return 1;
     return b.createdAt.localeCompare(a.createdAt);
@@ -447,7 +461,7 @@ function showDetail(id) {
     : `<div class="detail-image" style="font-size:7rem; height:240px;">${categoryIcon(item.category)}</div>`;
 
   // WhatsApp Share button
-  const shareText = encodeURIComponent(`*🚨 RNSIT Lost & Found Alert*\nItem: ${item.name}\nType: ${item.type}\nLocation: ${item.location}\nDate: ${item.date}\nPortal: Check RNSIT Lost & Found Community Portal`);
+  const shareText = encodeURIComponent(`*🚨 Campus Lost & Found Alert*\nItem: ${item.name}\nType: ${item.type}\nLocation: ${item.location}\nDate: ${item.date}\nCheck Campus Lost & Found Community Portal`);
   const shareButtonsEl = document.getElementById('detailShareButtons');
   if (shareButtonsEl) {
     shareButtonsEl.innerHTML = `
@@ -534,9 +548,7 @@ function showDetail(id) {
     </div>
   `;
 
-  // Check for Smart Match (AI / Match Simulation)
   checkSmartMatch(item);
-
   showPage('detail');
 }
 
@@ -545,7 +557,6 @@ function checkSmartMatch(currentItem) {
   if (!container) return;
 
   const items = getStore(KEYS.items);
-  // If viewing a Lost item, find matching Found items (and vice-versa)
   const oppositeType = currentItem.type === 'Lost' ? 'Found' : 'Lost';
 
   const matches = items.filter(other => {
@@ -553,7 +564,6 @@ function checkSmartMatch(currentItem) {
     if (other.type !== oppositeType) return false;
     if (other.status === 'Returned') return false;
 
-    // Check category match or title keyword match
     const sameCategory = other.category === currentItem.category;
     const wordsCurrent = currentItem.name.toLowerCase().split(/\s+/).filter(w => w.length > 3);
     const hasWordMatch = wordsCurrent.some(w => other.name.toLowerCase().includes(w) || other.desc.toLowerCase().includes(w));
@@ -693,7 +703,6 @@ function openClaimModal(itemId) {
   document.getElementById('claimItemTitleDisplay').textContent = item.name;
   document.getElementById('claimProof').value = '';
   document.getElementById('claimPhone').value = user.phone || '';
-  document.getElementById('claimUSN').value = user.usn || '';
 
   document.getElementById('claimModal').classList.add('open');
 }
@@ -710,7 +719,6 @@ function submitClaim(e) {
   const itemId = document.getElementById('claimItemId').value;
   const proof = document.getElementById('claimProof').value.trim();
   const phone = document.getElementById('claimPhone').value.trim();
-  const usn = document.getElementById('claimUSN').value.trim().toUpperCase() || user.usn;
 
   const claims = getStore(KEYS.claims);
   if (claims.find(c => c.itemId === itemId && c.userId === user.id)) {
@@ -721,12 +729,11 @@ function submitClaim(e) {
 
   const newClaim = {
     id: genId(), itemId, userId: user.id, userName: user.name,
-    userUSN: usn, proof, phone, status: 'Pending', submittedAt: today(),
+    proof, phone, status: 'Pending', submittedAt: today(),
   };
   claims.push(newClaim);
   setStore(KEYS.claims, claims);
 
-  // Update item status
   const items = getStore(KEYS.items);
   const idx = items.findIndex(i => i.id === itemId);
   if (idx !== -1) {
@@ -735,7 +742,7 @@ function submitClaim(e) {
   }
 
   closeModal('claimModal');
-  showToast('Claim submitted for security/admin verification! 🛡️', 'success');
+  showToast('Claim submitted for verification! 🛡️', 'success');
   showDetail(itemId);
 }
 
@@ -752,17 +759,15 @@ function openReceiptModal(itemId) {
                 claims.find(c => c.itemId === itemId);
 
   const claimantName = claim ? claim.userName : (getCurrentUser()?.name || 'Verified Claimant');
-  const claimantUSN = claim?.userUSN || '1RN25CS016';
-  const receiptNo = 'RNSIT-LF-' + item.id.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(-6);
+  const receiptNo = 'CAMPUS-LF-' + item.id.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(-6);
 
   document.getElementById('receiptPrintArea').innerHTML = `
     <div class="receipt-paper">
       <div class="receipt-header">
-        <img src="assets/rnsit-logo.png" alt="RNSIT" class="receipt-emblem" />
+        <div style="font-size:2rem; margin-right:10px;">📋</div>
         <div>
-          <div class="receipt-title">R. N. S. INSTITUTE OF TECHNOLOGY</div>
-          <div class="receipt-college">Autonomous Institution · Affiliated to VTU · Channasandra, Bengaluru</div>
-          <div style="font-weight:700; color:#1e3a8a; margin-top:2px;">OFFICIAL PROPERTY HANDOVER ACKNOWLEDGMENT SLIP</div>
+          <div class="receipt-title">CAMPUS LOST &amp; FOUND RECOVERY SYSTEM</div>
+          <div class="receipt-college">Official Lost &amp; Found Property Handover Slip</div>
         </div>
       </div>
 
@@ -773,20 +778,19 @@ function openReceiptModal(itemId) {
 
       <table class="receipt-table">
         <tr><td style="width:35%;"><strong>Item Description:</strong></td><td>${escHtml(item.name)}</td></tr>
-        <tr><td><strong>Category / Zone:</strong></td><td>${item.category} (${escHtml(item.location)})</td></tr>
+        <tr><td><strong>Category / Block:</strong></td><td>${item.category} (${escHtml(item.location)})</td></tr>
         <tr><td><strong>Original Date Reported:</strong></td><td>${formatDate(item.date)}</td></tr>
         <tr><td><strong>Claimant Name:</strong></td><td>${escHtml(claimantName)}</td></tr>
-        <tr><td><strong>Claimant USN:</strong></td><td><strong>${escHtml(claimantUSN)}</strong></td></tr>
         <tr><td><strong>Handover Status:</strong></td><td><span style="color:#059669; font-weight:800;">VERIFIED &amp; RETURNED</span></td></tr>
       </table>
 
       <div style="font-size:.8rem; color:#64748b; margin-top:.5rem;">
-        * This document certifies that the aforementioned belonging was surrendered and successfully reclaimed through the RNSIT Lost &amp; Found Portal after verification of identity and private ownership marks.
+        * This document certifies that the aforementioned belonging was surrendered and successfully reclaimed through the Campus Lost &amp; Found Portal after verification of identity and private ownership details.
       </div>
 
       <div class="receipt-signatures">
-        <div class="sig-box">Signature of Claimant (Student)</div>
-        <div class="sig-box">Security / Department In-Charge Stamp</div>
+        <div class="sig-box">Signature of Claimant</div>
+        <div class="sig-box">Campus Desk Officer Stamp</div>
       </div>
     </div>
   `;
@@ -885,7 +889,7 @@ function renderAdminItems() {
   <div style="overflow-x:auto;">
   <table class="admin-table">
     <thead><tr>
-      <th>Item</th><th>Type</th><th>Category</th><th>Campus Location</th><th>Date</th><th>Status</th><th>Actions</th>
+      <th>Item</th><th>Type</th><th>Category</th><th>Campus Location / Block</th><th>Date</th><th>Status</th><th>Actions</th>
     </tr></thead>
     <tbody>${items.map(item => `<tr>
       <td><strong>${escHtml(item.name)}</strong>${item.isUrgent ? ' <span class="badge badge-lost">🚨 Urgent</span>' : ''}</td>
@@ -922,14 +926,13 @@ function renderAdminClaims() {
   <div style="overflow-x:auto;">
   <table class="admin-table">
     <thead><tr>
-      <th>Claimant</th><th>USN</th><th>Target Item</th><th>Confidential Proof</th><th>Phone</th><th>Status</th><th>Verification Action</th>
+      <th>Claimant</th><th>Target Item</th><th>Confidential Proof</th><th>Phone</th><th>Status</th><th>Verification Action</th>
     </tr></thead>
     <tbody>${claims.map(c => {
       const item = items.find(i => i.id === c.itemId);
       const statusCls = { Pending: 'status-pending', Approved: 'status-approved', Rejected: 'status-rejected' }[c.status] || '';
       return `<tr>
         <td><strong>${escHtml(c.userName)}</strong></td>
-        <td><code>${escHtml(c.userUSN || '—')}</code></td>
         <td>${item ? escHtml(item.name) : '—'}</td>
         <td style="max-width:240px; font-size:.82rem;">${escHtml(c.proof)}</td>
         <td><a href="tel:${c.phone}">${c.phone || '—'}</a></td>
@@ -955,12 +958,11 @@ function renderAdminUsers() {
   el.innerHTML = `
   <div style="overflow-x:auto;">
   <table class="admin-table">
-    <thead><tr><th>Name</th><th>Email</th><th>USN</th><th>Branch</th><th>Role</th><th>Joined Date</th></tr></thead>
+    <thead><tr><th>Name</th><th>Email</th><th>Department / Block</th><th>Role</th><th>Joined Date</th></tr></thead>
     <tbody>${users.map(u => `<tr>
       <td><strong>${escHtml(u.name)}</strong></td>
       <td>${escHtml(u.email)}</td>
-      <td><code>${u.usn || '—'}</code></td>
-      <td>${u.dept || 'CSE'}</td>
+      <td>${u.dept || 'Campus Member'}</td>
       <td><span class="badge ${u.role === 'admin' ? 'badge-found' : 'badge-category'}">${u.role}</span></td>
       <td>${formatDate(u.createdAt)}</td>
     </tr>`).join('')}
@@ -1087,7 +1089,7 @@ function exportItemsToCSV() {
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement('a');
   link.setAttribute('href', encodedUri);
-  link.setAttribute('download', `RNSIT_Lost_and_Found_Audit_${today()}.csv`);
+  link.setAttribute('download', `Campus_Lost_and_Found_Audit_${today()}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -1116,7 +1118,7 @@ function showToast(msg, type = 'success') {
 // =============================================
 //  HELPERS
 // =============================================
-function genId() { return 'rns_' + Math.random().toString(36).substr(2, 7) + '_' + Date.now().toString(36); }
+function genId() { return 'lf_' + Math.random().toString(36).substr(2, 7) + '_' + Date.now().toString(36); }
 function today() { return new Date().toISOString().split('T')[0]; }
 function formatDate(d) {
   if (!d) return '—';

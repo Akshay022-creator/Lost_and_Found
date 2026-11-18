@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RNSIT Lost & Found — Campus Portal</title>
+  <title>Campus Lost & Found — Community Recovery Portal</title>
   <link rel="stylesheet" href="src/style.css" />
-  <link rel="icon" type="image/png" href="assets/rnsit-logo.png" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>" />
 </head>
 <body>
 
@@ -13,10 +13,10 @@
 <nav class="navbar" id="navbar">
   <div class="nav-container">
     <a href="#" class="nav-brand" onclick="showPage('home')">
-      <img src="assets/rnsit-logo.png" alt="RNSIT Logo" class="brand-logo" />
+      <div class="brand-icon">🔍</div>
       <div class="brand-text">
-        <span class="brand-title">RNSIT Lost &amp; Found</span>
-        <span class="brand-sub">Campus Community Portal</span>
+        <span class="brand-title">Campus Lost &amp; Found</span>
+        <span class="brand-sub">Community Recovery Portal</span>
       </div>
     </a>
 
@@ -44,7 +44,7 @@
       </li>
       <li id="logoutBtn" style="display:none">
         <div class="user-menu">
-          <span class="user-avatar" id="userAvatar">A</span>
+          <span class="user-avatar" id="userAvatar">U</span>
           <span id="userName">User</span>
           <button class="btn btn-sm btn-outline" onclick="logout()">Logout</button>
         </div>
@@ -61,16 +61,9 @@
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
-      <div class="hero-college-badge">
-        <img src="assets/rnsit-logo.png" alt="RNSIT Emblem" class="hero-emblem" />
-        <div>
-          <strong>R. N. S. Institute of Technology</strong>
-          <span>Autonomous Institution · Affiliated to VTU, Belagavi</span>
-        </div>
-      </div>
-      <div class="hero-badge">Community Project 2026 · Course Code: 25BCBPR308 · Batch C1</div>
+      <div class="hero-badge">Campus Community Recovery Portal · Fast, Structured &amp; Verified</div>
       <h1 class="hero-title">Lost Something on Campus?<br><span class="gradient-text">We'll Help You Find It.</span></h1>
-      <p class="hero-subtitle">The official platform connecting RNSIT students, faculty, and security to report, track, and reclaim lost belongings with verified ownership handovers.</p>
+      <p class="hero-subtitle">A centralized, secure system connecting students, faculty, and campus security to report, discover, and safely return lost belongings across all campus blocks.</p>
       
       <div class="hero-actions">
         <button class="btn btn-primary btn-lg" onclick="showPage('report')">
@@ -105,12 +98,14 @@
     </div>
 
     <div class="hero-illustration">
-      <div class="floating-card fc1">🎒<br><small>Bag Found · Block B</small></div>
+      <div class="floating-card fc1">🎒<br><small>Bag Found · IT Block</small></div>
       <div class="floating-card fc2">🔑<br><small>Bike Keys · Canteen</small></div>
-      <div class="floating-card fc3">📱<br><small>iPhone Returned! ✅</small></div>
-      <div class="floating-card fc4">🪪<br><small>USN ID Card · Library</small></div>
-      <div class="hero-crest-backdrop">
-        <img src="assets/rnsit-logo.png" alt="RNSIT Logo Watermark" class="crest-watermark" />
+      <div class="floating-card fc3">📱<br><small>Earbuds Returned! ✅</small></div>
+      <div class="floating-card fc4">🪪<br><small>ID Card · Mechanical Block</small></div>
+      <div class="hero-compass-backdrop">
+        <div class="compass-circle">
+          <span class="compass-icon">🧭</span>
+        </div>
       </div>
     </div>
   </section>
@@ -132,32 +127,32 @@
   <section class="features-section">
     <div class="container">
       <h2 class="section-title">How The Campus System Works</h2>
-      <p class="section-subtitle">Structured, verified, and secure recovery loop for the RNSIT community</p>
+      <p class="section-subtitle">Structured, verified, and secure recovery loop for the campus community</p>
       
       <div class="steps-grid">
         <div class="step-card">
           <div class="step-num">1</div>
           <div class="step-icon">📋</div>
           <h3>1. Report &amp; Tag</h3>
-          <p>Submit item details, specify exact campus zone (Block A/B/C, Library, Canteen), upload photos, and flag if urgent.</p>
+          <p>Submit item details, specify exact campus block (Mechanical, Civil, IT, New IT, Admin, MBA, PU College), upload photos, and flag if urgent.</p>
         </div>
         <div class="step-card">
           <div class="step-num">2</div>
           <div class="step-icon">🤖</div>
           <h3>2. Search &amp; Smart Match</h3>
-          <p>Instant category filters and our Smart Match engine find possible lost-found pairings automatically.</p>
+          <p>Instant category filters and our Smart Match engine find possible lost-found pairings automatically across campus blocks.</p>
         </div>
         <div class="step-card">
           <div class="step-num">3</div>
           <div class="step-icon">🔒</div>
           <h3>3. Private Proof Verification</h3>
-          <p>Claimants submit non-public identifying details (stickers, serial numbers, wallpaper, contents) to verify ownership.</p>
+          <p>Claimants submit non-public identifying details (stickers, serial numbers, wallpaper, contents) to verify ownership safely.</p>
         </div>
         <div class="step-card">
           <div class="step-num">4</div>
           <div class="step-icon">🖨️</div>
           <h3>4. Verified Handover Slip</h3>
-          <p>Collect at designated campus drop points and generate a signed handover receipt for college audit records.</p>
+          <p>Collect at designated campus drop points and generate a signed handover receipt for formal custody records.</p>
         </div>
       </div>
     </div>
@@ -169,7 +164,7 @@
       <div class="section-header">
         <div>
           <h2 class="section-title">Recent Campus Listings</h2>
-          <p class="section-sub">Recently reported items across RNSIT campus</p>
+          <p class="section-sub">Recently reported items across campus blocks</p>
         </div>
         <button class="btn btn-outline" onclick="showPage('browse')">View All Listings →</button>
       </div>
@@ -181,13 +176,13 @@
   <section class="sdg-section">
     <div class="container">
       <h2 class="section-title">UN Sustainable Development Goals (SDG) Alignment</h2>
-      <p class="section-subtitle">Manned under Community Project 25BCBPR308</p>
+      <p class="section-subtitle">Promoting responsible shared spaces and institutional accountability</p>
       
       <div class="sdg-grid">
         <div class="sdg-card sdg11">
           <div class="sdg-badge">GOAL 11</div>
           <h3>Sustainable Cities &amp; Communities</h3>
-          <p>Fosters an organized, safe, and collaborative campus environment. Reduces avoidable economic loss for students by enabling rapid return of essential devices, notes, and belongings.</p>
+          <p>Fosters an organized, safe, and collaborative campus environment. Reduces avoidable financial loss for students and faculty by enabling rapid return of essential devices, notes, and personal belongings.</p>
         </div>
         <div class="sdg-card sdg16">
           <div class="sdg-badge">GOAL 16</div>
@@ -206,7 +201,7 @@
       <div class="page-header-flex">
         <div>
           <h1>Browse Campus Items</h1>
-          <p>Search and filter through all verified lost and found reports</p>
+          <p>Search and filter through all verified lost and found reports by campus block</p>
         </div>
         <button class="btn btn-primary" onclick="showPage('report')">➕ Report An Item</button>
       </div>
@@ -214,15 +209,19 @@
   </div>
 
   <div class="container">
-    <!-- Quick Zone Chips -->
+    <!-- Quick Zone Chips (With College Blocks) -->
     <div class="zone-chips-bar">
-      <span class="chips-label">📍 Quick Zones:</span>
+      <span class="chips-label">📍 Campus Blocks:</span>
       <button class="chip active" onclick="setZoneFilter('', this)">All Campus</button>
-      <button class="chip" onclick="setZoneFilter('Library', this)">Library</button>
-      <button class="chip" onclick="setZoneFilter('Block A', this)">Block A</button>
-      <button class="chip" onclick="setZoneFilter('Block B', this)">Block B</button>
-      <button class="chip" onclick="setZoneFilter('Block C', this)">Block C</button>
-      <button class="chip" onclick="setZoneFilter('Canteen', this)">Canteen</button>
+      <button class="chip" onclick="setZoneFilter('IT Block', this)">IT Block</button>
+      <button class="chip" onclick="setZoneFilter('New IT Block', this)">New IT Block</button>
+      <button class="chip" onclick="setZoneFilter('Mechanical Block', this)">Mechanical Block</button>
+      <button class="chip" onclick="setZoneFilter('Civil Block', this)">Civil Block</button>
+      <button class="chip" onclick="setZoneFilter('Admin Block', this)">Admin Block</button>
+      <button class="chip" onclick="setZoneFilter('MBA Block', this)">MBA Block</button>
+      <button class="chip" onclick="setZoneFilter('PU College Block', this)">PU College Block</button>
+      <button class="chip" onclick="setZoneFilter('Library', this)">Central Library</button>
+      <button class="chip" onclick="setZoneFilter('Canteen', this)">Main Canteen</button>
       <button class="chip" onclick="setZoneFilter('Sports', this)">Sports Ground</button>
       <button class="chip chip-urgent" onclick="setUrgentFilter(this)">🚨 Urgent Only</button>
     </div>
@@ -231,7 +230,7 @@
     <div class="filter-bar">
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search by item name, USN, marks, location..." oninput="filterItems()" />
+        <input type="text" id="searchInput" placeholder="Search by item name, description, block, location..." oninput="filterItems()" />
       </div>
 
       <select id="filterCategory" onchange="filterItems()" class="filter-select">
@@ -286,7 +285,7 @@
   <div class="page-header">
     <div class="container">
       <h1>Report Lost or Found Item</h1>
-      <p>Log item details into the official RNSIT campus register</p>
+      <p>Log item details into the campus lost and found register</p>
     </div>
   </div>
 
@@ -305,7 +304,7 @@
         <div class="form-grid">
           <div class="form-group">
             <label>Item Name / Title *</label>
-            <input type="text" id="itemName" placeholder="e.g. Navy Blue Wildcraft Backpack with Lenovo Charger" required />
+            <input type="text" id="itemName" placeholder="e.g. Navy Blue Wildcraft Backpack with Charger" required />
           </div>
 
           <div class="form-group">
@@ -314,7 +313,7 @@
               <option value="">Select category</option>
               <option value="Electronics">Electronics (Laptop, Phone, Earbuds)</option>
               <option value="Bags">Bags, Wallets &amp; Pouches</option>
-              <option value="ID/Cards">College ID Card / Hall Ticket / Gov ID</option>
+              <option value="ID/Cards">Campus ID Card / Hall Ticket / Gov ID</option>
               <option value="Keys">Keys (Bike, Room, Locker)</option>
               <option value="Clothing">Clothing &amp; Umbrellas</option>
               <option value="Books">Books, Records &amp; Calculators</option>
@@ -332,29 +331,32 @@
           <div class="form-group">
             <label>Campus Location / Block *</label>
             <select id="itemLocationSelect" onchange="handleLocationSelect(this)" required>
-              <option value="">Select Primary Campus Area</option>
-              <option value="Central Library">Central Library (Ground / 1st / 2nd Floor)</option>
-              <option value="Block A">Block A (ECE / Mechanical / Main Admin)</option>
-              <option value="Block B">Block B (CSE / ISE / AI-ML / Data Science)</option>
-              <option value="Block C">Block C (Civil / Basic Sciences / First Year)</option>
-              <option value="Main Canteen">Main College Canteen / Nescafe Point</option>
-              <option value="Main Auditorium">Main Auditorium / Seminar Hall</option>
-              <option value="Sports Ground">Sports Complex / Basketball / Cricket Ground</option>
-              <option value="Campus Main Gate">Campus Main Gate / Temple Entrance</option>
-              <option value="Other Location">Other (Custom Location)</option>
+              <option value="">Select Campus Block</option>
+              <option value="Mechanical Block">Mechanical Block</option>
+              <option value="Civil Block">Civil Block</option>
+              <option value="IT Block">IT Block</option>
+              <option value="New IT Block">New IT Block</option>
+              <option value="Admin Block">Admin Block</option>
+              <option value="MBA Block">MBA Block</option>
+              <option value="PU College Block">PU College Block</option>
+              <option value="Central Library">Central Library</option>
+              <option value="Main Canteen">Main Canteen / Food Court</option>
+              <option value="Sports Ground">Sports Ground / Basketball Court</option>
+              <option value="Campus Main Gate">Campus Main Gate</option>
+              <option value="Other Location">Other Spot (Custom)</option>
             </select>
-            <input type="text" id="itemLocation" placeholder="Specific spot details (e.g. Table 14, 2nd Floor Library)" required style="margin-top: 6px;" />
+            <input type="text" id="itemLocation" placeholder="Specific spot details (e.g. Lab 2, 2nd Floor Corridor, Room 301)" required style="margin-top: 6px;" />
           </div>
 
           <div class="form-group full-width">
             <label>Public Description *</label>
-            <textarea id="itemDesc" rows="3" placeholder="Provide public visual features (brand, color, general condition). DO NOT mention private passcodes, internal secret pocket contents or unique marks that only the true owner can verify!" required></textarea>
+            <textarea id="itemDesc" rows="3" placeholder="Provide public visual features (brand, color, general condition). DO NOT mention private passcodes or secret contents that only the true owner can verify!" required></textarea>
             <small class="field-hint">💡 Pro-tip: Keep secret identifying details private so you can verify the claimant's proof!</small>
           </div>
 
           <div class="form-group">
             <label>Contact Email *</label>
-            <input type="email" id="itemContact" placeholder="yourname25cs@rnsit.ac.in" required />
+            <input type="email" id="itemContact" placeholder="yourname@campus.edu" required />
           </div>
 
           <div class="form-group">
@@ -368,7 +370,7 @@
               <input type="checkbox" id="itemIsUrgent" />
               <span class="checkmark"></span>
               <span class="checkbox-label">
-                <strong>🚨 Mark as Urgent Item</strong> — Hall tickets, College ID cards, Keys, or Medical supplies that need priority attention before exams/commute.
+                <strong>🚨 Mark as Urgent Item</strong> — Hall tickets, ID cards, Keys, or Medical supplies that need priority attention.
               </span>
             </label>
           </div>
@@ -391,7 +393,7 @@
 
         <div class="form-actions">
           <button type="button" class="btn btn-outline" onclick="showPage('browse')">Cancel</button>
-          <button type="submit" class="btn btn-primary btn-lg">📋 Submit Campus Report</button>
+          <button type="submit" class="btn btn-primary btn-lg">📋 Submit Report</button>
         </div>
       </form>
     </div>
@@ -403,7 +405,7 @@
   <div class="page-header">
     <div class="container">
       <h1>Campus Handover &amp; Drop Centers</h1>
-      <p>Official designated desks across RNSIT campus to safely surrender or collect verified items</p>
+      <p>Official designated desks across campus to safely surrender or collect verified items</p>
     </div>
   </div>
 
@@ -411,10 +413,10 @@
     <div class="centers-grid">
       <div class="center-card">
         <div class="center-icon">🛡️</div>
-        <div class="center-tag">Primary 24/7 Desk</div>
+        <div class="center-tag">24/7 Primary Desk</div>
         <h3>Main Gate Security Office</h3>
-        <p class="center-location">📍 Main Entrance (Near Temple Gate)</p>
-        <p class="center-desc">Best for items found during late evenings, weekends, or general campus perimeter. Security personnel maintain a physical custody register.</p>
+        <p class="center-location">📍 Campus Main Entrance</p>
+        <p class="center-desc">Best for items found during late hours, weekends, or general campus perimeter. Security personnel maintain a physical custody register.</p>
         <div class="center-meta">
           <span>🕒 Timings: 24 Hours / 7 Days</span>
           <span>👤 Officer in Charge: Campus Security Head</span>
@@ -424,36 +426,36 @@
       <div class="center-card">
         <div class="center-icon">📚</div>
         <div class="center-tag">Central Academic Desk</div>
-        <h3>Central Library Circulation Counter</h3>
-        <p class="center-location">📍 Central Library Building, Ground Floor</p>
-        <p class="center-desc">For books, calculators, notes, study glasses, laptop sleeves and student ID cards left in reading halls.</p>
+        <h3>Central Library Helpdesk</h3>
+        <p class="center-location">📍 Central Library, Ground Floor Circulation Counter</p>
+        <p class="center-desc">For textbooks, calculators, notes, study glasses, laptop sleeves and student ID cards left in reading halls.</p>
         <div class="center-meta">
           <span>🕒 Timings: 8:30 AM – 7:30 PM</span>
-          <span>👤 In Charge: Senior Librarian Desk</span>
+          <span>👤 In Charge: Library Circulation Desk</span>
         </div>
       </div>
 
       <div class="center-card">
         <div class="center-icon">💻</div>
         <div class="center-tag">Department Desk</div>
-        <h3>CSE Department Office (Block B)</h3>
-        <p class="center-location">📍 Block B, 2nd Floor, Room B-205</p>
-        <p class="center-desc">Drop-off center managed for Computer Science, Information Science &amp; Allied branches labs and classrooms.</p>
+        <h3>IT Block Helpdesk</h3>
+        <p class="center-location">📍 IT Block, 2nd Floor Department Office</p>
+        <p class="center-desc">Drop-off center covering IT Block, New IT Block, labs, and nearby lecture halls.</p>
         <div class="center-meta">
           <span>🕒 Timings: 9:00 AM – 4:45 PM</span>
-          <span>👤 Coordinator: Community Project Helpdesk</span>
+          <span>👤 Coordinator: Lost &amp; Found Coordinator</span>
         </div>
       </div>
 
       <div class="center-card">
-        <div class="center-icon">☕</div>
-        <div class="center-tag">Student Common Area</div>
-        <h3>Canteen Main Billing Desk</h3>
-        <p class="center-location">📍 RNSIT Central Canteen &amp; Food Court</p>
-        <p class="center-desc">Hand over wallets, bike keys, water bottles, and pouches left behind on food court dining tables.</p>
+        <div class="center-icon">🏛️</div>
+        <div class="center-tag">Administration Desk</div>
+        <h3>Admin Block Reception Desk</h3>
+        <p class="center-location">📍 Admin Block, Ground Floor Main Lobby</p>
+        <p class="center-desc">Hand over official documents, wallets, keys, and accessories found near administrative offices and conference halls.</p>
         <div class="center-meta">
-          <span>🕒 Timings: 8:00 AM – 5:30 PM</span>
-          <span>👤 In Charge: Canteen Manager</span>
+          <span>🕒 Timings: 9:00 AM – 5:00 PM</span>
+          <span>👤 In Charge: Student Affairs Desk</span>
         </div>
       </div>
     </div>
@@ -462,9 +464,9 @@
     <div class="guidelines-card">
       <h3>📜 Campus Handover Standard Operating Procedure (SOP)</h3>
       <ol>
-        <li><strong>Finder:</strong> When you find an item, report it online and hand it over to the nearest designated center within 4 hours.</li>
+        <li><strong>Finder:</strong> Report the item on this portal and hand it over to the nearest designated center within 4 hours.</li>
         <li><strong>Verification:</strong> The claimant must describe non-public details (wallpaper, stickers, bill or internal contents).</li>
-        <li><strong>Collection:</strong> Present your valid College ID Card (USN) when picking up the item.</li>
+        <li><strong>Collection:</strong> Present a valid ID card when picking up the item at the handover desk.</li>
         <li><strong>Receipt:</strong> An automated digital Handover Receipt is generated on this portal for official record.</li>
       </ol>
     </div>
@@ -481,7 +483,7 @@
 
     <div class="detail-card" id="detailCard"></div>
 
-    <!-- Smart Match Box (appears dynamically if matches found) -->
+    <!-- Smart Match Box -->
     <div id="smartMatchContainer" class="smart-match-container" style="display:none;"></div>
   </div>
 </div>
@@ -513,15 +515,15 @@
   <div class="auth-container">
     <div class="auth-card">
       <div class="auth-header">
-        <img src="assets/rnsit-logo.png" alt="RNSIT Emblem" class="auth-emblem" />
-        <h2>RNSIT Campus Login</h2>
-        <p>Sign in with your college credentials</p>
+        <div class="auth-icon">🔍</div>
+        <h2>Campus Portal Login</h2>
+        <p>Sign in with your campus account credentials</p>
       </div>
 
       <form id="loginForm" onsubmit="login(event)">
         <div class="form-group">
           <label>Email Address</label>
-          <input type="email" id="loginEmail" placeholder="yourname25cs@rnsit.ac.in" required />
+          <input type="email" id="loginEmail" placeholder="yourname@campus.edu" required />
         </div>
         <div class="form-group">
           <label>Password</label>
@@ -536,14 +538,14 @@
 
       <div class="auth-divider">or</div>
       <div class="auth-footer">
-        <p>New student/staff? <a href="#" onclick="showPage('register')">Create an account</a></p>
+        <p>New user? <a href="#" onclick="showPage('register')">Create an account</a></p>
         <div class="demo-credentials-box">
           <strong>🔑 Quick Demo Logins:</strong>
           <div class="demo-role-row">
-            <span>Admin:</span> <code>admin@rnsit.ac.in</code> / <code>admin123</code>
+            <span>Admin:</span> <code>admin@campus.edu</code> / <code>admin123</code>
           </div>
           <div class="demo-role-row">
-            <span>Student:</span> <code>akshaykaushik25cs@rnsit.ac.in</code> / <code>pass1234</code>
+            <span>Student:</span> <code>student@campus.edu</code> / <code>pass1234</code>
           </div>
         </div>
       </div>
@@ -556,34 +558,31 @@
   <div class="auth-container">
     <div class="auth-card">
       <div class="auth-header">
-        <img src="assets/rnsit-logo.png" alt="RNSIT Emblem" class="auth-emblem" />
-        <h2>Student / Staff Registration</h2>
-        <p>Join the RNSIT Lost &amp; Found campus community</p>
+        <div class="auth-icon">🎓</div>
+        <h2>Create Campus Account</h2>
+        <p>Join the campus lost and found community</p>
       </div>
 
       <form id="registerForm" onsubmit="register(event)">
         <div class="form-group">
           <label>Full Name *</label>
-          <input type="text" id="regName" placeholder="e.g. Akshay Kaushik" required />
+          <input type="text" id="regName" placeholder="e.g. Alex Johnson" required />
         </div>
         <div class="form-group">
-          <label>College Email ID *</label>
-          <input type="email" id="regEmail" placeholder="name25cs@rnsit.ac.in" required />
+          <label>Email ID *</label>
+          <input type="email" id="regEmail" placeholder="yourname@campus.edu" required />
         </div>
         <div class="form-group">
-          <label>USN (University Seat Number) *</label>
-          <input type="text" id="regUSN" placeholder="e.g. 1RN25CS016" required />
-        </div>
-        <div class="form-group">
-          <label>Department / Branch</label>
+          <label>Department / Block</label>
           <select id="regDept">
-            <option value="CSE">Computer Science &amp; Engineering</option>
-            <option value="ISE">Information Science &amp; Engineering</option>
-            <option value="AIML">Artificial Intelligence &amp; Machine Learning</option>
-            <option value="ECE">Electronics &amp; Communication</option>
-            <option value="MECH">Mechanical Engineering</option>
-            <option value="CIVIL">Civil Engineering</option>
-            <option value="STAFF">Faculty / Staff Member</option>
+            <option value="IT Block">IT Block</option>
+            <option value="New IT Block">New IT Block</option>
+            <option value="Mechanical Block">Mechanical Block</option>
+            <option value="Civil Block">Civil Block</option>
+            <option value="Admin Block">Admin Block</option>
+            <option value="MBA Block">MBA Block</option>
+            <option value="PU College Block">PU College Block</option>
+            <option value="Faculty / Staff">Faculty / Staff Member</option>
           </select>
         </div>
         <div class="form-group">
@@ -611,7 +610,7 @@
       <div class="page-header-flex">
         <div>
           <h1>Admin Control Dashboard</h1>
-          <p>Official moderation, claim verification, status lifecycle &amp; institutional records</p>
+          <p>Portal moderation, claim verification, status lifecycle &amp; institutional records</p>
         </div>
         <button class="btn btn-secondary" onclick="exportItemsToCSV()">📥 Export Audit CSV</button>
       </div>
@@ -664,11 +663,6 @@
           <input type="tel" id="claimPhone" placeholder="10-digit mobile number for handover call" required />
         </div>
 
-        <div class="form-group">
-          <label>Your USN (University Seat Number)</label>
-          <input type="text" id="claimUSN" placeholder="e.g. 1RN25CS016" />
-        </div>
-
         <div class="form-actions">
           <button type="button" class="btn btn-outline" onclick="closeModal('claimModal')">Cancel</button>
           <button type="submit" class="btn btn-primary">✅ Submit Claim for Review</button>
@@ -704,17 +698,14 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="footer-logo-row">
-          <img src="assets/rnsit-logo.png" alt="RNSIT Logo" class="footer-emblem" />
+          <div class="footer-brand-icon">🔍</div>
           <div>
-            <div class="footer-college-name">R. N. S. Institute of Technology</div>
-            <div class="footer-college-sub">Autonomous Institution · Affiliated to VTU, Belagavi · Accredited by NAAC with 'A+' Grade</div>
+            <div class="footer-college-name">Campus Lost &amp; Found Portal</div>
+            <div class="footer-college-sub">Community Property Recovery &amp; Safe Handover System</div>
           </div>
         </div>
         <p class="footer-about">
-          A Community Project developed to solve lost &amp; found coordination on campus through structured lifecycle management, private proof verification, and institutional handover records.
-        </p>
-        <p class="footer-location">
-          📍 Dr. Vishnuvardhan Road, Post, Channasandra, RR Nagar, Bengaluru, Karnataka 560098
+          A centralized platform developed to coordinate lost and found items across all campus blocks through structured lifecycle management, private proof verification, and verified handover records.
         </p>
       </div>
 
@@ -727,23 +718,24 @@
         <a href="#" onclick="showPage('myclaims')">My Claims</a>
       </div>
 
-      <div class="footer-team">
-        <h4>Project Team Details</h4>
-        <p><strong>Atul Shrivastava</strong> (1RX25CS032)</p>
-        <p><strong>Leona Marilyn Rego</strong> (1IB25CS101)</p>
-        <p><strong>Akshay Kaushik</strong> (1RN25CS016)</p>
-        <p><strong>Ajjuguttu Pranay Krishna Reddy</strong> (1RN25CS013)</p>
-        <div class="footer-guide-badge">
-          Internal Guide: <strong>Ms. Aishwarya G</strong>
-        </div>
-        <div class="footer-course-meta">
-          Course: Community Project (25BCBPR308) · Section C · Batch C1
+      <div class="footer-blocks">
+        <h4>Campus Blocks Covered</h4>
+        <div class="blocks-tag-list">
+          <span class="block-tag">Mechanical Block</span>
+          <span class="block-tag">Civil Block</span>
+          <span class="block-tag">IT Block</span>
+          <span class="block-tag">New IT Block</span>
+          <span class="block-tag">Admin Block</span>
+          <span class="block-tag">MBA Block</span>
+          <span class="block-tag">PU College Block</span>
+          <span class="block-tag">Central Library</span>
+          <span class="block-tag">Main Canteen</span>
         </div>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <div>&copy; 2026 RNSIT Lost &amp; Found Portal. Developed for RNSIT Campus Community.</div>
+      <div>&copy; 2026 Campus Lost &amp; Found Portal. All rights reserved.</div>
       <div class="footer-sdg-tag">Manning UN Sustainable Development Goals: SDG 11 &amp; SDG 16</div>
     </div>
   </div>

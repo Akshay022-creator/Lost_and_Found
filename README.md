@@ -1,70 +1,60 @@
-# 🔍 RNSIT Lost & Found
+# 🔍 Campus Lost & Found — Community Recovery Portal
 
-A community web application to help RNSIT students and staff report, discover, and reclaim lost belongings — fast, transparent, and trustworthy.
-
-**Community Project · Course Code: 25BCBPR308 · Section C · Batch C1**
+A centralized, responsive web platform to help students, faculty, and campus staff report, discover, and safely reclaim lost belongings — fast, transparent, and trustworthy.
 
 ---
 
 ## 🚀 Live Demo
 
-> Deploy link will appear here after hosting on Netlify/GitHub Pages.
+**Live Website:** [https://akshay022-creator.github.io/Lost_and_Found/](https://akshay022-creator.github.io/Lost_and_Found/)
 
 ---
 
-## 📋 Features
+## 📋 Key Features
 
 | Feature | Description |
 |---|---|
-| **Report Items** | Report lost or found items with photos, category, location & date |
-| **Search & Filter** | Filter by category, type (lost/found), status, and keyword |
-| **Claim System** | Submit ownership claims with proof details |
-| **Status Tracking** | Open → Claim Pending → Returned lifecycle for every item |
-| **Admin Dashboard** | Manage all items, review/approve/reject claims, view stats |
-| **Auth System** | Register/Login with role-based access (user/admin) |
-| **Responsive UI** | Works on mobile, tablet, and desktop |
+| **Campus Blocks Integration** | Filter and report items across **Mechanical Block, Civil Block, IT Block, New IT Block, Admin Block, MBA Block, and PU College Block**. |
+| **Report Items** | Report lost or found items with photo uploads, category, date, and exact campus block. |
+| **Search & Zone Filters** | Quick chips filter by campus block, category, status, and keywords. |
+| **Smart Match Engine** | Automatically suggests pairings between lost inquiries and found surrenders. |
+| **Private Ownership Verification** | Claimants submit confidential proof details (stickers, serial numbers, marks) before an item is released. |
+| **Handover Slip Generator** | Generates an official, printable property handover acknowledgment slip. |
+| **WhatsApp Community Sharing** | 1-click formatted broadcast button for class and campus messaging groups. |
+| **Admin Moderation** | Review and approve/reject claims, update item lifecycles, and view real-time statistics. |
+| **Audit CSV Export** | Export all institutional records into an Excel-ready CSV file. |
+| **Dark & Light Mode** | Responsive theme switcher with persistent local storage. |
 
 ---
 
-## 👥 Project Team
+## 🏛️ Campus Blocks Covered
 
-| USN | Name | Email |
-|---|---|---|
-| 1RX25CS032 | Atul Shrivastava | atulshrivastava25cs@rnsit.ac.in |
-| 1IB25CS101 | Leona Marilyn Rego | leonamarilynrego25cs@rnsit.ac.in |
-| 1RN25CS016 | Akshay Kaushik | akshaykaushik25cs@rnsit.ac.in |
-| 1RN25CS013 | Ajjuguttu Pranay Krishna Reddy | ajjuguttupranaykrishnareddy25cs@rnsit.ac.in |
-
-**Internal Guide:** Ms. Aishwarya G
+- ⚙️ **Mechanical Block**
+- 🏗️ **Civil Block**
+- 💻 **IT Block**
+- 🖥️ **New IT Block**
+- 🏛️ **Admin Block**
+- 📊 **MBA Block**
+- 🎓 **PU College Block**
+- 📚 **Central Library**
+- ☕ **Main Canteen / Food Court**
+- ⚽ **Sports Ground**
 
 ---
 
-## 🌍 SDG Alignment
+## 🌍 UN Sustainable Development Goals (SDG) Alignment
 
-- **SDG 11 – Sustainable Cities & Communities:** Contributes to safer, better-organised shared campus spaces.
-- **SDG 16 – Peace, Justice & Strong Institutions:** Promotes trust and accountability through transparent claim handling.
+- **SDG 11 – Sustainable Cities & Communities:** Contributes to safer, better-organized shared campus spaces and reduces avoidable financial loss for students.
+- **SDG 16 – Peace, Justice & Strong Institutions:** Promotes institutional accountability and trust through verifiable proof logs and digital acknowledgment slips.
 
 ---
 
 ## 🛠 Tech Stack
 
 - **Frontend:** Pure HTML5, CSS3, Vanilla JavaScript (ES6+)
-- **Storage:** Browser `localStorage` (no backend required)
-- **Hosting:** Netlify / GitHub Pages (static)
-- **No frameworks, no npm, no build step needed**
-
----
-
-## 🏃 Running Locally
-
-Just open `index.html` in your browser — no server needed!
-
-```bash
-git clone https://github.com/YOUR_USERNAME/rnsit-lost-and-found.git
-cd rnsit-lost-and-found
-# Open index.html in browser
-open index.html
-```
+- **Storage:** Browser `localStorage` (client-side persistence)
+- **Deployment:** GitHub Pages / Netlify (zero dependencies, instant loading)
+- **No frameworks or build steps required**
 
 ---
 
@@ -72,38 +62,24 @@ open index.html
 
 | Role | Email | Password |
 |---|---|---|
-| Admin | `admin@rnsit.ac.in` | `admin123` |
-| User | `akshaykaushik25cs@rnsit.ac.in` | `pass1234` |
+| Admin | `admin@campus.edu` | `admin123` |
+| Student | `student@campus.edu` | `pass1234` |
 
 ---
 
 ## 📁 Project Structure
 
 ```
-rnsit-lost-and-found/
-├── index.html          # Main HTML (single-page app)
+Lost_and_Found/
+├── index.html          # Main application page (SPA)
 ├── src/
-│   ├── style.css       # Complete styles
-│   └── app.js          # Full app logic (auth, routing, CRUD)
+│   ├── style.css       # Complete responsive styles & dark mode
+│   └── app.js          # Application logic, smart match & handover engine
 ├── README.md
-└── netlify.toml        # Netlify deployment config
+├── netlify.toml        # Netlify deployment configuration
+└── .gitignore
 ```
 
 ---
 
-## 🚀 Deployment
-
-### GitHub Pages
-1. Push to GitHub
-2. Go to **Settings → Pages → Deploy from branch → main → / (root)**
-3. Access at `https://YOUR_USERNAME.github.io/rnsit-lost-and-found/`
-
-### Netlify (Recommended)
-1. Push to GitHub
-2. Go to [netlify.com](https://netlify.com) → New Site → Import from Git
-3. Select the repo → Publish directory: `.` → Deploy
-4. Live in ~1 minute with a free `*.netlify.app` URL
-
----
-
-© 2026 RNSIT Lost & Found · Community Project
+© 2026 Campus Lost & Found Portal · All rights reserved.
