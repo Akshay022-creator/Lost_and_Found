@@ -475,8 +475,9 @@ function showDetail(id) {
   }
 
   let actionBtns = '';
-  if (item.type === 'Found' && item.status === 'Open' && user && !isOwner && !userHasClaim) {
-    actionBtns += `<button class="btn btn-primary btn-lg" onclick="openClaimModal('${item.id}')">🛡️ Submit Ownership Claim</button>`;
+  if (item.type === 'Found' && item.status !== 'Returned' && user && !isOwner && !userHasClaim) {
+    const claimBtnText = item.status === 'Claim Pending' ? '🛡️ Submit Competing Claim' : '🛡️ Submit Ownership Claim';
+    actionBtns += `<button class="btn btn-primary btn-lg" onclick="openClaimModal('${item.id}')">${claimBtnText}</button>`;
   }
   if (userHasClaim) {
     actionBtns += `<span class="badge status-${userHasClaim.status.toLowerCase()}" style="padding:.6rem 1.2rem; font-size:.9rem;">Your Claim Status: ${userHasClaim.status}</span>`;
@@ -1094,9 +1095,17 @@ function adminApproveClaim(claimId) {
   if (idx !== -1) {
     const itemId = claims[idx].itemId;
     claims[idx].status = 'Approved';
+
+    // Auto-reject any other competing claims on this item
+    claims.forEach((c, i) => {
+      if (c.itemId === itemId && c.id !== claimId && c.status === 'Pending') {
+        claims[i].status = 'Rejected';
+      }
+    });
+
     setStore(KEYS.claims, claims);
     adminChangeStatus(itemId, 'Returned');
-    showToast('Claim approved! Item marked as RETURNED. Handover slip ready.', 'success');
+    showToast('Claim approved! Competing claims rejected. Item marked as RETURNED.', 'success');
     renderAdmin();
   }
 }
@@ -1121,6 +1130,14 @@ function ownerApproveClaim(claimId) {
   if (idx !== -1) {
     const itemId = claims[idx].itemId;
     claims[idx].status = 'Approved';
+
+    // Auto-reject any other competing claims on this item
+    claims.forEach((c, i) => {
+      if (c.itemId === itemId && c.id !== claimId && c.status === 'Pending') {
+        claims[i].status = 'Rejected';
+      }
+    });
+
     setStore(KEYS.claims, claims);
 
     // Update item status to Returned
@@ -1131,7 +1148,7 @@ function ownerApproveClaim(claimId) {
       setStore(KEYS.items, items);
     }
 
-    showToast('Claim verified & accepted! Item marked as Returned. 🎉', 'success');
+    showToast('Claim verified & accepted! Competing claims rejected. Item marked as Returned. 🎉', 'success');
     showDetail(itemId);
   }
 }
