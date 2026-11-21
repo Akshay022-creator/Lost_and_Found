@@ -480,7 +480,17 @@ function showDetail(id) {
     actionBtns += `<button class="btn btn-primary btn-lg" onclick="openClaimModal('${item.id}')">${claimBtnText}</button>`;
   }
   if (userHasClaim) {
-    actionBtns += `<span class="badge status-${userHasClaim.status.toLowerCase()}" style="padding:.6rem 1.2rem; font-size:.9rem;">Your Claim Status: ${userHasClaim.status}</span>`;
+    const statusNote = userHasClaim.status === 'Rejected' 
+      ? '<div style="background:#fee2e2; border:1.5px solid #fca5a5; color:#991b1b; padding:.65rem 1rem; border-radius:8px; font-size:.85rem; font-weight:600; margin-top:.5rem;">❌ Claim Rejected: The finder or administrator verified that the private proof does not match this item.</div>'
+      : (userHasClaim.status === 'Approved'
+        ? '<div style="background:#dcfce7; border:1.5px solid #86efac; color:#166534; padding:.65rem 1rem; border-radius:8px; font-size:.85rem; font-weight:600; margin-top:.5rem;">🎉 Claim Verified! Your ownership proof was approved. Click the button below to view your official Handover Slip.</div>'
+        : '');
+    actionBtns += `
+      <div style="display:flex; flex-direction:column; gap:.4rem;">
+        <span class="badge status-${userHasClaim.status.toLowerCase()}" style="padding:.6rem 1.2rem; font-size:.9rem; align-self:flex-start;">Your Claim Status: ${userHasClaim.status}</span>
+        ${statusNote}
+      </div>
+    `;
   }
   if (item.status === 'Returned' || userHasClaim?.status === 'Approved') {
     actionBtns += `<button class="btn btn-secondary" onclick="openReceiptModal('${item.id}')">🖨️ View Handover Receipt</button>`;
@@ -869,6 +879,11 @@ function renderMyClaims() {
     el.innerHTML = claims.map(c => {
       const item = items.find(i => i.id === c.itemId);
       const statusCls = { Pending: 'status-pending', Approved: 'status-approved', Rejected: 'status-rejected' }[c.status] || '';
+      const feedbackMessage = c.status === 'Rejected'
+        ? '<div style="background:#fee2e2; border:1px solid #fca5a5; color:#991b1b; padding:.5rem .75rem; border-radius:6px; font-size:.82rem; font-weight:600; margin-top:.5rem;">❌ Claim Rejected: Provided proof did not match the physical item.</div>'
+        : (c.status === 'Approved'
+          ? '<div style="background:#dcfce7; border:1px solid #86efac; color:#166534; padding:.5rem .75rem; border-radius:6px; font-size:.82rem; font-weight:600; margin-top:.5rem;">✅ Verified: Your ownership was confirmed! Handover ready.</div>'
+          : '<div style="font-size:.8rem; color:var(--text-muted); margin-top:.3rem;">⏳ Under review by finder / desk officer.</div>');
       return `
       <div class="claim-card">
         <div class="claim-card-header">
@@ -880,6 +895,7 @@ function renderMyClaims() {
         </div>
         <p><strong>Submitted Proof:</strong> ${escHtml(c.proof)}</p>
         <p style="font-size:.8rem; color:var(--text-muted); margin-top:.4rem;">Filed on ${formatDate(c.submittedAt)}</p>
+        ${feedbackMessage}
         <div style="margin-top:1rem; display:flex; gap:.75rem;">
           ${item ? `<button class="btn btn-outline btn-sm" onclick="showDetail('${item.id}')">View Item Details</button>` : ''}
           ${c.status === 'Approved' && item ? `<button class="btn btn-secondary btn-sm" onclick="openReceiptModal('${item.id}')">🖨️ Handover Slip</button>` : ''}
