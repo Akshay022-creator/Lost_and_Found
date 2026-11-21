@@ -485,7 +485,8 @@ function showDetail(id) {
     actionBtns += `<button class="btn btn-secondary" onclick="openReceiptModal('${item.id}')">🖨️ View Handover Receipt</button>`;
   }
   if (isOwner && item.status !== 'Returned') {
-    actionBtns += `<button class="btn btn-danger btn-sm" onclick="deleteItem('${item.id}')">🗑 Delete My Report</button>`;
+    actionBtns += `<button class="btn btn-outline btn-sm" onclick="ownerMarkReturned('${item.id}')">✅ Mark as Returned &amp; Close</button>`;
+    actionBtns += `<button class="btn btn-danger btn-sm" onclick="deleteItem('${item.id}')">🗑 Delete Report</button>`;
   }
   if (isAdmin) {
     actionBtns += `
@@ -498,6 +499,48 @@ function showDetail(id) {
         </select>
       </div>
     `;
+  }
+
+  // Incoming claims for the finder/owner of this post
+  let ownerClaimsHtml = '';
+  if (isOwner || isAdmin) {
+    const itemClaims = claims.filter(c => c.itemId === id);
+    if (itemClaims.length > 0) {
+      ownerClaimsHtml = `
+      <div class="incoming-claims-section" style="margin-top:2rem; padding:1.5rem; background:var(--surface2); border:1.5px solid var(--border); border-radius:var(--radius);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+          <h3 style="font-size:1.1rem; color:var(--text); margin:0;">📬 Claims Received on this Item (${itemClaims.length})</h3>
+          <span style="font-size:.8rem; color:var(--text-muted);">Review private proof before handover</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          ${itemClaims.map(c => `
+            <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:1.25rem;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:.5rem;">
+                <div>
+                  <strong>Claimant: ${escHtml(c.userName)}</strong>
+                  ${c.phone ? `<div style="font-size:.85rem; color:var(--text-muted); margin-top:2px;">📞 Phone: <a href="tel:${c.phone}">${c.phone}</a> &nbsp;|&nbsp; <a href="https://api.whatsapp.com/send?phone=${c.phone}&text=Hi,%20regarding%20your%20claim%20on%20${encodeURIComponent(item.name)}" target="_blank" style="color:#25D366; font-weight:700;">💬 WhatsApp</a></div>` : ''}
+                </div>
+                <span class="status-badge status-${c.status.toLowerCase()}">${c.status}</span>
+              </div>
+              <div style="background:var(--bg); border:1px dashed var(--border); border-radius:6px; padding:.75rem 1rem; margin:.75rem 0;">
+                <div style="font-size:.75rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; margin-bottom:.25rem;">🔒 Private Proof Submitted:</div>
+                <div style="font-size:.9rem; color:var(--text);">${escHtml(c.proof)}</div>
+              </div>
+              ${c.status === 'Pending' ? `
+              <div style="display:flex; gap:.6rem; margin-top:.75rem;">
+                <button class="btn btn-sm btn-success" onclick="ownerApproveClaim('${c.id}')">✓ Verify &amp; Accept Claim (Close Item)</button>
+                <button class="btn btn-sm btn-danger" onclick="ownerRejectClaim('${c.id}')">✗ Reject Claim</button>
+              </div>
+              ` : `
+              <div style="font-size:.82rem; color:var(--text-muted); margin-top:.5rem;">
+                Outcome: <strong>${c.status}</strong> on ${formatDate(c.submittedAt)}
+              </div>
+              `}
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
+    }
   }
 
   document.getElementById('detailCard').innerHTML = `
@@ -545,6 +588,7 @@ function showDetail(id) {
       </div>
 
       <div class="detail-actions">${actionBtns}</div>
+      ${ownerClaimsHtml}
     </div>
   `;
 
@@ -850,7 +894,22 @@ function renderMyClaims() {
     if (!myReports.length) {
       repEl.innerHTML = `<div class="empty-state"><div class="empty-icon">📦</div><h3>No items reported by you yet</h3></div>`;
     } else {
-      repEl.innerHTML = myReports.map(itemCard).join('');
+      repEl.innerHTML = `
+        <div class="items-grid">
+          ${myReports.map(item => {
+            const pendingClaimsCount = claims.filter(c => c.itemId === item.id && c.status === 'Pending').length;
+            const badgeHtml = pendingClaimsCount > 0 
+              ? `<div style="background:#fef3c7; border:1px solid #f59e0b; color:#92400e; padding:.4rem .8rem; border-radius:6px; font-size:.82rem; font-weight:700; margin-top:.5rem;">🔔 ${pendingClaimsCount} Pending Claim to Review! Click to check proof.</div>`
+              : '';
+            return `
+              <div style="display:flex; flex-direction:column;">
+                ${itemCard(item)}
+                ${badgeHtml}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
     }
   }
 }
@@ -1053,6 +1112,63 @@ function adminRejectClaim(claimId) {
     if (!remaining.length) adminChangeStatus(itemId, 'Open');
     showToast('Claim rejected.', 'error');
     renderAdmin();
+  }
+}
+
+function ownerApproveClaim(claimId) {
+  const claims = getStore(KEYS.claims);
+  const idx = claims.findIndex(c => c.id === claimId);
+  if (idx !== -1) {
+    const itemId = claims[idx].itemId;
+    claims[idx].status = 'Approved';
+    setStore(KEYS.claims, claims);
+
+    // Update item status to Returned
+    const items = getStore(KEYS.items);
+    const itemIdx = items.findIndex(i => i.id === itemId);
+    if (itemIdx !== -1) {
+      items[itemIdx].status = 'Returned';
+      setStore(KEYS.items, items);
+    }
+
+    showToast('Claim verified & accepted! Item marked as Returned. 🎉', 'success');
+    showDetail(itemId);
+  }
+}
+
+function ownerRejectClaim(claimId) {
+  const claims = getStore(KEYS.claims);
+  const idx = claims.findIndex(c => c.id === claimId);
+  if (idx !== -1) {
+    const itemId = claims[idx].itemId;
+    claims[idx].status = 'Rejected';
+    setStore(KEYS.claims, claims);
+
+    // If no other pending claims, reset item to Open
+    const remaining = claims.filter(c => c.itemId === itemId && c.status === 'Pending');
+    if (!remaining.length) {
+      const items = getStore(KEYS.items);
+      const itemIdx = items.findIndex(i => i.id === itemId);
+      if (itemIdx !== -1) {
+        items[itemIdx].status = 'Open';
+        setStore(KEYS.items, items);
+      }
+    }
+
+    showToast('Claim rejected. Item remains open for legitimate owner.', 'info');
+    showDetail(itemId);
+  }
+}
+
+function ownerMarkReturned(itemId) {
+  if (!confirm('Mark this item as successfully returned and close the report?')) return;
+  const items = getStore(KEYS.items);
+  const itemIdx = items.findIndex(i => i.id === itemId);
+  if (itemIdx !== -1) {
+    items[itemIdx].status = 'Returned';
+    setStore(KEYS.items, items);
+    showToast('Report closed and marked as Returned! ✅', 'success');
+    showDetail(itemId);
   }
 }
 
